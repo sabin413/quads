@@ -1,0 +1,2849 @@
+PHYSICAL_CONSTRAINTS:
+  AIRDENS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  ALBEDO:
+    is_fractional: true
+    is_positive: true
+    is_priority: true
+  ALBNIRDF:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  ALBNIRDR:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  ALBVISDF:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  ALBVISDR:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  AODANA:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  AODINC:
+    is_fractional: false
+    is_positive: false
+    is_priority: true
+  AREA:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  ASNOW_GL:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  AUTCNVRN:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  BASEFLOW:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  BCANGSTR:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  BCCMASS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  BCDP001:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  BCDP002:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  BCEM001:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  BCEM002:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  BCEMAN:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  BCEMBB:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  BCEMBF:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  BCEXTTAU:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  BCFLUXU:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  BCFLUXV:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  BCHYPHIL:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  BCINC:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  BCOOL:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  BCPHILIC:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  BCPHOBIC:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  BCSCATAU:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  BCSD001:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  BCSD002:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  BCSMASS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  BCSV:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  BCSV001:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  BCSV002:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  BCWT001:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  BCWT002:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  BKGERR:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  BSTAR:
+    is_fractional: false
+    is_positive: false
+    is_priority: true
+  CDH:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  CDM:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  CDQ:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  CFAN:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  CFCU:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  CFLS:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  CLDHGH:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  CLDLOW:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  CLDMID:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  CLDPRS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  CLDTMP:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  CLDTOT:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  CLOUD:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  CMFMC:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  CN:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  CO:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  CO2:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  CO2CL:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  CO2EM:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  CO2SC:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  COCL:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  COEM:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  COLCNVRN:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  COLCNVSN:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  COLS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  COPD:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  COSC:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  COSZ:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  CPT:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  CUCNVCI:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  CUCNVCL:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  CUCNVRN:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DCOOL:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DELTS:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DHDT_ANA:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DHDT_BKG:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DHDT_CUF:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DHDT_DYN:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DHDT_FRI:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DHDT_GWD:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DHDT_MST:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DHDT_ORO:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DHDT_PHY:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DHDT_RAD:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DHDT_RAY:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DHDT_RES:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DHDT_TRB:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DISPH:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DKDT_ANA:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DKDT_BKG:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DKDT_DYN:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DKDT_GWD:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DKDT_GWDRES:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DKDT_INT:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DKDT_MST:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DKDT_ORO:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DKDT_PHY:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DKDT_PHYPHY:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DKDT_RAY:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DKDT_SRF:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DKDT_TOP:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DKDT_TRB:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DMDTANA:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DMDTDYN:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DMDTPHY:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DMDT_ANA:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DMDT_DYN:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DMDT_PHY:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DMS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DMSCMASS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DMSSMASS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DOXDTANA:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DOXDTCHM:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DOXDTDYN:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DOXDTMST:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DOXDTTRB:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DOXDT_ANA:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DOXDT_CHM:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DOXDT_DYN:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DOXDT_FIL:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DOXDT_PHY:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DPDT_ANA:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DPDT_DYN:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DPDT_PHY:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DQDTANAINT:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DQIDTDYN:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DQIDTMST:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DQIDTTRB:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DQIDT_ANA:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DQIDT_DYN:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DQIDT_FIL:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DQIDT_MST:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DQIDT_PHY:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DQLDTDYN:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DQLDTMST:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DQLDTTRB:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DQLDT_ANA:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DQLDT_DYN:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DQLDT_FIL:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DQLDT_MST:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DQLDT_PHY:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DQRCU:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DQRLSAN:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DQVDTANA:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DQVDTCHM:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DQVDTDYN:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DQVDTMST:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DQVDTTRB:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DQVDT_ANA:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DQVDT_CHM:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DQVDT_DYN:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DQVDT_FIL:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DQVDT_MST:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DQVDT_PHY:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DQVDT_TRB:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DTDTANA:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DTDTDYN:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DTDTFRI:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DTDTFRIC:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DTDTGWD:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DTDTLWR:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DTDTLWRCLR:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DTDTMST:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DTDTRAD:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DTDTSWR:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DTDTSWRCLR:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DTDTTOT:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DTDTTRB:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DTHDT_ANA:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DTHDT_DYN:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DTHDT_PHY:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DTRAIN:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DTSDT_ANA:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DU001:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DU002:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DU003:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DU004:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DU005:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DUAERIDX:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DUANGSTR:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DUCMASS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DUCMASS25:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DUDP001:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DUDP002:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DUDP003:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DUDP004:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DUDP005:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DUDTANA:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DUDTDYN:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DUDTGWD:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DUDTMST:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DUDTTRB:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DUEM001:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DUEM002:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DUEM003:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DUEM004:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DUEM005:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DUEXTT25:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DUEXTTAU:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DUEXTTFM:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  DUFLUXU:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DUFLUXV:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DUINC:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DUSCAT25:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DUSCATAU:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DUSCATFM:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  DUSD001:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DUSD002:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DUSD003:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DUSD004:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DUSD005:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DUSMASS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DUSMASS25:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DUSV:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DUSV001:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DUSV002:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DUSV003:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DUSV004:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DUSV005:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DUWT001:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DUWT002:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DUWT003:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DUWT004:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DUWT005:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  DVDTANA:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DVDTDYN:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DVDTGWD:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DVDTMST:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DVDTTRB:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  DWARM:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  ECHANGE:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  EFLUX:
+    is_fractional: false
+    is_positive: false
+    is_priority: true
+  EFLUXICE:
+    is_fractional: false
+    is_positive: false
+    is_priority: true
+  EFLUXWTR:
+    is_fractional: false
+    is_positive: false
+    is_priority: true
+  EMIS:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  EPV:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  EVAP:
+    is_fractional: false
+    is_positive: false
+    is_priority: true
+  EVAPOUT:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  EVLAND:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  EVPCL:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  EVPINTR:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  EVPRN:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  EVPSBLN:
+    is_fractional: false
+    is_positive: false
+    is_priority: true
+  EVPSOIL:
+    is_fractional: false
+    is_positive: false
+    is_priority: true
+  EVPTRNS:
+    is_fractional: false
+    is_positive: false
+    is_priority: true
+  FRCAN:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  FRCCN:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  FRCLS:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  FRLAKE:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  FRLAND:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  FRLANDICE:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  FROCEAN:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  FRSAT:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  FRSEAICE:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  FRSNO:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  FRUNST:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  FRWLT:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  FRZCL:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  FRZRN:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  GHLAND:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  GHTSKIN:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  GRN:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  GWETPROF:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  GWETROOT:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  GWETTOP:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  H:
+    is_fractional: false
+    is_positive: false
+    is_priority: true
+  H1000:
+    is_fractional: false
+    is_positive: false
+    is_priority: true
+  H250:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  H500:
+    is_fractional: false
+    is_positive: false
+    is_priority: true
+  H850:
+    is_fractional: false
+    is_positive: false
+    is_priority: true
+  HFLUX:
+    is_fractional: false
+    is_positive: false
+    is_priority: true
+  HFLUXICE:
+    is_fractional: false
+    is_positive: false
+    is_priority: true
+  HFLUXWTR:
+    is_fractional: false
+    is_positive: false
+    is_priority: true
+  HLML:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  HNO3CMASS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  HNO3SMASS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  HOURNORAIN:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  INCLOUDQI:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  INCLOUDQL:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  ISCCPALB:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  ISCCPCLDFRC:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  KE:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  KH:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  KHLK:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  KHLS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  KHRAD:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  KHSFC:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  KM:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  KMLK:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  KMLS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  LAI:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  LANGM:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  LCOOL:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  LHLAND:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  LSCNVCI:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  LSCNVCL:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  LSCNVRN:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  LWGAB:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  LWGABCLR:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  LWGABCLRCLN:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  LWGEM:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  LWGNET:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  LWGNT:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  LWGNTCLR:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  LWGNTCLRCLN:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  LWGNTICE:
+    is_fractional: false
+    is_positive: false
+    is_priority: true
+  LWGNTWTR:
+    is_fractional: false
+    is_positive: false
+    is_priority: true
+  LWI:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  LWLAND:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  LWSCC5:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  LWTNET:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  LWTUP:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  LWTUPCLR:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  LWTUPCLRCLN:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  MASS:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  MDSCLDFRCH2O:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  MDSCLDFRCHI:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  MDSCLDFRCICE:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  MDSCLDFRCLO:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  MDSCLDFRCMID:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  MDSCLDFRCTTL:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  MDSCLDSZH20:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  MDSCLDSZICE:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  MDSCLDTOPPS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  MDSH2OPATH:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  MDSICEPATH:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  MDSOPTHCKH2O:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  MDSOPTHCKH2OLG:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  MDSOPTHCKICE:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  MDSOPTHCKICELG:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  MDSOPTHCKTTL:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  MDSOPTHCKTTLLG:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  MFXC:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  MFYC:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  MFZ:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  MSA:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  NH3:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  NH3CMASS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  NH3DP:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  NH3EM:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  NH3SMASS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  NH3SV:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  NH3WT:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  NH4A:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  NH4CMASS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  NH4DP:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  NH4SD:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  NH4SMASS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  NH4SV:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  NH4WT:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  NIANGSTR:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  NICMASS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  NICMASS25:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  NIDP001:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  NIDP002:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  NIDP003:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  NIEXTTAU:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  NIEXTTFM:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  NIFLUXU:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  NIFLUXV:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  NIHT001:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  NIHT002:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  NIHT003:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  NIPNH3AQ:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  NIPNH4AQ:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  NIPNO3AQ:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  NIRDF:
+    is_fractional: false
+    is_positive: false
+    is_priority: true
+  NIRDR:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  NISCATAU:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  NISCATFM:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  NISD001:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  NISD002:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  NISD003:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  NISMASS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  NISMASS25:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  NISV:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  NISV001:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  NISV002:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  NISV003:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  NIWT001:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  NIWT002:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  NIWT003:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  NO2:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  NO3AN1:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  NO3AN2:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  NO3AN3:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  O3:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  OCANGSTR:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  OCCMASS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  OCDP001:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  OCDP002:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  OCEM001:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  OCEM002:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  OCEMAN:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  OCEMBB:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  OCEMBF:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  OCEMBG:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  OCEXTTAU:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  OCFLUXU:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  OCFLUXV:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  OCHYPHIL:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  OCINC:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  OCPHILIC:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  OCPHOBIC:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  OCSCATAU:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  OCSD001:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  OCSD002:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  OCSMASS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  OCSV:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  OCSV001:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  OCSV002:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  OCWT001:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  OCWT002:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  OLRCC5:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  OMEGA:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  OMEGA500:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  PARDF:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  PARDFLAND:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  PARDR:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  PARDRLAND:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  PBLH:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  PBLTOP:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  PFICU:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  PFILSAN:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  PFLCU:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  PFLLSAN:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  PGENTOT:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  PHIS:
+    is_fractional: false
+    is_positive: false
+    is_priority: true
+  PHIW:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  PL:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  PLE:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  PM25_RH35_GCC:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  PRECANV:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  PRECCON:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  PRECCU:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  PRECCUCORR:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  PRECLS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  PRECLSC:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  PRECLSCORR:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  PRECSN:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  PRECSNO:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  PRECSNOCORR:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  PRECSNOLAND:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  PRECSNOOCN:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  PRECTOT:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  PRECTOTCORR:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  PRECTOTLAND:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  PREVTOT:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  PRMC:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  PS:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  Q250:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  Q500:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  Q850:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  QCCU:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  QCOOL:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  QI:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  QIAN:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  QILS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  QINFIL:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  QL:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  QLAN:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  QLLS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  QLML:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  QR:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  QS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  QSH:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  QSTAR:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  QTFILL:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  QV:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  QV10M:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  QV2M:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  QWARM:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  RADSRF:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  RAINOCN:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  REEVAPCN:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  REEVAPLSAN:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  RH:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  RHOA:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  RI:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  RISFC:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  RUNOFF:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  RZMC:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SDMCI:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SFMC:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SGH:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SHLAND:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SLP:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  SMLAND:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SNICEALB:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  SNODP:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SNOMAS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SNOMAS_GL:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SNOWDP_GL:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SO2:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SO2CMASS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SO2EMAN:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SO2EMBB:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SO2EMVE:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SO2EMVN:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SO2SMASS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SO4:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SO4CMASS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SO4EMAN:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SO4SMASS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SPEED:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SPEEDLML:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SPEEDMAX:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SPLAND:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SPSNOW:
+    is_fractional: false
+    is_positive: false
+    is_priority: true
+  SPWATR:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SS001:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SS002:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SS003:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SS004:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SS005:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SSAERIDX:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  SSANGSTR:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SSCMASS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SSCMASS25:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SSDP001:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SSDP002:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SSDP003:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SSDP004:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SSDP005:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SSEM001:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SSEM002:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SSEM003:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SSEM004:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SSEM005:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SSEXTT25:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  SSEXTTAU:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SSEXTTFM:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  SSFLUXU:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SSFLUXV:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SSINC:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SSSCAT25:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  SSSCATAU:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SSSCATFM:
+    is_fractional: true
+    is_positive: true
+    is_priority: false
+  SSSD001:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SSSD002:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SSSD003:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SSSD004:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SSSD005:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SSSMASS:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SSSMASS25:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SSSV:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SSSV001:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SSSV002:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SSSV003:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SSSV004:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SSSV005:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SSWT001:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SSWT002:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SSWT003:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SSWT004:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SSWT005:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SUANGSTR:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SUBCI:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SUBSN:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SUDP001:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SUDP002:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SUDP003:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SUDP004:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SUEM001:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SUEM002:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SUEM003:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SUEM004:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SUEXTTAU:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SUFLUXU:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SUFLUXV:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SUINC:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SUPMSA:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SUPSO2:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SUPSO4AQ:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SUPSO4G:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SUPSO4WT:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SUSCATAU:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SUSD001:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SUSD002:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SUSD003:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SUSD004:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SUSV:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SUSV001:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SUSV002:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SUSV003:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SUSV004:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SUWT001:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SUWT002:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SUWT003:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SUWT004:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SWCOOL:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SWGDN:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SWGDNCLR:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SWGNT:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SWGNTCLN:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SWGNTCLR:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SWGNTCLRCLN:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  SWGNTICE:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  SWGNTWTR:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  SWLAND:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SWNETSRF:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SWNETTOA:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SWTDN:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SWTNT:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SWTNTCLN:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SWTNTCLR:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SWTNTCLRCLN:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  SWWARM:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  T:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  T10M:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  T250:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  T2M:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  T2MDEW:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  T2MMAX:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  T2MMEAN:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  T2MMIN:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  T2MWET:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  T500:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  T850:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  TAUCLI:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  TAUCLW:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  TAUGWX:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  TAUGWY:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  TAUHGH:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  TAULOW:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  TAUMID:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  TAUTOT:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  TAUTW:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  TAUX:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  TAUXICE:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  TAUXWTR:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  TAUY:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  TAUYICE:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  TAUYWTR:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  TBAR:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  TCZPBL:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  TDEL:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  TDROP:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  TELAND:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  THV:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  TLML:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  TO3:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  TOTANGSTR:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  TOTEXTTAU:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  TOTSCATAU:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  TOX:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  TPRECMAX:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  TPSNOW:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  TQI:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  TQL:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  TQV:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  TROPPB:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  TROPPT:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  TROPPV:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  TROPQ:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  TROPT:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  TS:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  TSAT:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  TSH:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  TSKINICE:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  TSKINWTR:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  TSOIL1:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  TSOIL2:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  TSOIL3:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  TSOIL4:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  TSOIL5:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  TSOIL6:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  TSTAR:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  TSURF:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  TS_FOUND:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  TUNST:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  TWLAND:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  TWLT:
+    is_fractional: false
+    is_positive: true
+    is_priority: true
+  U:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  U10M:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  U250:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  U2M:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  U500:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  U50M:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  U850:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  UFLXCPT:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  UFLXKE:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  UFLXPHI:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  UFLXQI:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  UFLXQL:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  UFLXQV:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  ULML:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  USTAR:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  USTARW:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  V:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  V10M:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  V250:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  V2M:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  V500:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  V50M:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  V850:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  VFLXCPT:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  VFLXKE:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  VFLXPHI:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  VFLXQI:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  VFLXQL:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  VFLXQV:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  VLML:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  WCHANGE:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  WESNEXT:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  WESNSC:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  Z0H:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  Z0M:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  ZETA_W:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  ZLCL:
+    is_fractional: false
+    is_positive: true
+    is_priority: false
+  ZLE:
+    is_fractional: false
+    is_positive: false
+    is_priority: false
+  delp:
+    is_fractional: false
+    is_positive: true
+    is_priority: false

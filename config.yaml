@@ -1,0 +1,33 @@
+
+#######################################################################
+
+## Filename:   config.yaml
+## Created By: Tariq Hamzey (SSAI)
+## On:         9 March 2022
+## For:        GMAO/NASA
+
+## This yaml file contains various configuration parameters used
+## throughout QuADS/Accumulator applications.
+
+#######################################################################
+
+
+APP_LOCATION: '/discover/nobackup/ashiklom/thamzey/HOME/quadsql/quads/'
+
+JAVA_SOURCE: 'tdigest'
+
+QUADS_DB_ROOT: '/discover/nobackup/ashiklom/thamzey/NOBACKUP/quads/'
+
+
+SWsize: 3
+
+SQL_SCHEMA_FILE: '/discover/nobackup/ashiklom/thamzey/HOME/quadsql/quads/dataservice/sqlite_schema.sql'
+
+POSTGRESQL_SCHEMA_FILE: '/discover/nobackup/ashiklom/thamzey/HOME/quadsql/quads/dataservice/postgres_schema.sql'
+
+QUADS_PARAMETERS:
+  innerq: 0.0001
+  outerq: 0.0000001
+  tail_scalar: 1.5
+  median_scalar: 6
+  PSI_threshold: 1.5

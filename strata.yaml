@@ -1,0 +1,64 @@
+#######################################################################
+
+## Created By: Tariq Hamzey (SSAI)
+##         On: 9 March 2022
+##        For: GMAO/NASA
+
+## This YAML defines strata for QuADS accumulators and comparators.  
+## Operates lat/lon grid.
+
+#######################################################################
+
+STRATA:
+
+  Strat1:
+    lat:
+      min: -90
+      max: -70
+
+  Strat2:
+    lat:
+      min: -70
+      max: -45
+
+  Strat3:
+    lat:
+      min: -45
+      max: -20
+
+  Strat4:
+     lat:
+       min: -20
+       max: 0
+
+  Strat5:
+    lat:
+      min: 0
+      max: 20
+
+  Strat6:
+    lat:
+      min: 20
+      max: 45
+
+  Strat7:
+    lat:
+      min: 45
+      max: 70
+
+  Strat8:
+    lat:
+      min: 70
+      max: 90
+
+
+
+
+
+
+
+
+
+
+
+

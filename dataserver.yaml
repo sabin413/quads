@@ -1,0 +1,149 @@
+
+MODELS:
+
+  GEOSCF:
+
+    ID: 'GEOSCF'
+    SRC: '/discover/nobackup/projects/gmao/geos_cf/pub/GEOS-CF_NRT/ana/Y%Y/M%m/D%d'
+    FILES: 'GEOS-CF.v01.rpl.%C.%Y%m%d_*z.nc'
+
+    COLLECTIONS:
+      '*':
+        - '*'
+        - TLML: off
+        - DELP: off
+        - delp: off
+        - TAITIME: off
+
+  GEOSIT:
+
+    ID: 'GEOSIT'
+    SRC: '/home/dao_ops/d5294_geosit_jan18/run/.../archive/diag/Y%Y/M%m'
+    FILES: 'd5294_geosit_jan18.*.%Y-%m-%dT%H%M*.nc'
+
+    COLLECTIONS:
+      
+      mst_tavg_3hr_glo_L576x361_v73: '*'
+      asm_inst_3hr_glo_L576x361_p42: '*'
+      asm_tavg_3hr_glo_L576x361_v72: '*'
+      ocn_tavg_1hr_glo_L576x361_slv: '*'
+      cld_tavg_3hr_glo_L576x361_v72: '*'
+      lfo_inst_1hr_glo_L576x361_slv: '*'
+      slv_tavg_1hr_glo_L576x361_slv: '*'
+      tdt_tavg_3hr_glo_L576x361_v72: '*'
+      lnd_tavg_1hr_glo_L576x361_slv: '*'
+      rad_tavg_1hr_glo_L576x361_slv: '*'
+      asm_inst_1hr_glo_L576x361_slv: '*'
+      flx_tavg_1hr_glo_L576x361_slv: '*'
+      rad_tavg_3hr_glo_L576x361_v72: '*'
+      asm_const_0hr_glo_L576x361_slv: '*'
+      mst_tavg_3hr_glo_L576x361_v72: '*'
+      asm_inst_3hr_glo_L576x361_v72: '*'
+      trb_tavg_3hr_glo_L576x361_v73: '*'
+      lfo_tavg_1hr_glo_L576x361_slv: '*'
+     
+      '*':
+        - TLML: off
+        - DELP: off
+        - delp: off
+        - TAITIME: off
+
+  FPIT:
+
+    ID: 'FPIT'
+    SRC: '/home/dao_ops/d5124_rpit_jan12/run/.../archive/diag/Y%Y/M%m'
+    FILES: 'd5124_rpit_jan12.*.%Y%m%d_%H%Mz.nc'
+
+    COLLECTIONS:
+
+      '*':
+        - '*'
+        - TLML: off
+        - DELP: off
+        - delp: off
+        - TAITIME: off
+
+  GEOSFP:
+
+    ID: 'GEOSFP'
+    SRC: './data'
+    FILES: 'GEOS.fp.asm.*.%Y%m%d_%H%M.V01.nc'
+
+    COLLECTIONS:
+      inst3_2d_asm_Nx: '*'                                                           
+      tavg1_2d_flx_Nx: '*'                                                           
+      tavg1_2d_lfo_Nx: '*'                                                           
+      inst3_3d_asm_Nv: '*'                                                           
+      inst3_3d_aer_Nv: '*'                                                           
+      tavg3_3d_lsf_Nv: '*'                                                           
+      tavg1_2d_mdt_Nx: '*'                                                           
+      tavg1_2d_lnd_Nx: '*'                                                           
+      tavg3_3d_rad_Nv: '*'                                                           
+      tavg3_2d_aer_Nx: '*'                                                         
+      tavg3_2d_smp_Nx: '*'                                                         
+      tavg3_3d_tdt_Nv: '*'                                                          
+      tavg3_3d_nav_Nv: '*'                                                          
+      inst3_3d_asm_Np: '*'                                                          
+      inst1_2d_lfo_Nx: '*'                                                          
+      tavg3_3d_cld_Nv: '*'                                                          
+      tavg3_3d_lsf_Ne: '*'                                                          
+      tavg3_2d_chm_Nx: '*'                                                          
+      tavg1_2d_rad_Nx: '*'                                                          
+      tavg1_2d_ocn_Nx: '*'                                                          
+      tavg3_2d_adg_Nx: '*'                                                          
+      tavg3_3d_udt_Nv: '*'                                                          
+      tavg3_3d_odt_Nv: '*'                                                          
+      tavg3_3d_trb_Ne: '*'                                                          
+      tavg3_3d_asm_Nv: '*'                                                          
+      tavg3_3d_qdt_Nv: '*'                                                          
+      tavg3_3d_nav_Ne: '*'                                                          
+      inst1_2d_smp_Nx: '*'                                                          
+      tavg1_2d_slv_Nx: '*'                                                          
+      inst3_3d_chm_Nv: '*'                                                          
+      inst3_2d_smp_Nx: '*'                                                          
+      tavg3_3d_mst_Nv: '*'                                                          
+      tavg3_3d_mst_Ne: '*'
+      inst1_2d_hwl_Nx: '*'
+
+      '*':
+        - TLML: off
+        - TAITIME: off
+        - DELP: off
+
+  MERRA2:
+
+    ID: &MERRA2_ID 'MERRA2'
+    SRC: &MERRA2_SRC '/discover/nobackup/projects/gmao/merra2/data/pub/products/MERRA2_400/Y%Y/M%m'
+    FILES: &MERRA2_FILES 'MERRA2_400.*.%Y%m%d.nc'
+
+    COLLECTIONS:
+      '*':
+        - '*'
+        - TLML: off
+        - TAITIME: off
+        - DELP: off
+        - delp: off
+
+PLACEHOLDERS:
+  year: '%Y'
+  month: '%m'
+  day: '%d'
+  hour: '%H'
+  minute: '%M'
+  second: '%S'
+  collection: '%C'
+  version: '%V'
+
+
+FieldID_Attributes:
+  - 'model'
+  - 'collection'
+  - 'expid'
+  - 'field'
+  - 'vartype'
+  - 'units'
+  - 'lev'
+
+
+
+
