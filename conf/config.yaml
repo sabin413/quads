@@ -1,16 +1,4 @@
-
-#######################################################################
-
-## Filename:   config.yaml
-## Created By: Tariq Hamzey (SSAI)
-## On:         9 March 2022
-## For:        GMAO/NASA
-
-## This yaml file contains various configuration parameters used
-## throughout QuADS/Accumulator applications.
-
-#######################################################################
-
+# config fil e
 
 APP_LOCATION: '/discover/nobackup/ashiklom/thamzey/HOME/quadsql/quads/'
 

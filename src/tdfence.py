@@ -20,3 +20,7 @@ def check_limit(data):
     mask    = np.abs(x - mu) > 3 * sigma
     return int(mask.sum())
 
+
+
+
+

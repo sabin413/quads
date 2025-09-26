@@ -66,7 +66,7 @@ MODELS:
   GEOSFP:
 
     ID: 'GEOSFP'
-    SRC: './data'
+    SRC: '/discover/nobackup/projects/gmao/gmao_ops/pub/fp/das/Y%Y/M%m/D%d'
     FILES: 'GEOS.fp.asm.*.%Y%m%d_%H%M.V01.nc'
 
     COLLECTIONS:

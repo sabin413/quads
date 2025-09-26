@@ -18,8 +18,6 @@ from tdfence import check_limit
 from pytdigest import TDigest  # for typing of `digest`
 
 from strid_uuid import make_id_uuid
-import os
-from zipfile import ZipFile, ZIP_DEFLATED
 
 # Coordinate name preferences (in order)
 LEV_NAMES = ["lev", "level", "pressure"]
@@ -34,81 +32,20 @@ def load_strata(strata_yaml_file: str | Path) -> Dict[str, Dict]:
     with open(strata_yaml_file, "r") as f:
         return yaml.safe_load(f)["STRATA"]
 
+
 def save_one_result(key, digest, quantiles, limits, out_dir: Path) -> None:
-    out_dir = Path(out_dir)
-    out_dir.mkdir(parents=True, exist_ok=True)
-
-    payload = {
-        "id_key": key,
-        "centroids": digest.get_centroids(),
-        "quantiles": quantiles,
-        "limits": limits,
-    }
-
-    final = out_dir / f"{key}.pkl"
-    tmp = out_dir / f".{key}.pkl.tmp"
-
-    with open(tmp, "wb") as fh:
-        pickle.dump(payload, fh, protocol=pickle.HIGHEST_PROTOCOL)
-
-    os.replace(tmp, final)  # atomic finalize
-
-def zip_dir(src_dir: Path, zip_path: Path) -> str:
-    """
-    Zip all files under src_dir into zip_path with DEFLATE compression.
-    Uses a temp file and os.replace for atomic finalization.
-    """
-    src_dir = Path(src_dir)
-    tmp = zip_path.with_suffix(zip_path.suffix + ".tmp")
-    tmp.parent.mkdir(parents=True, exist_ok=True)
-
-    with ZipFile(tmp, mode="w", compression=ZIP_DEFLATED, allowZip64=True) as z:
-        base = src_dir
-        for root, _, files in os.walk(base):
-            for name in files:
-                fp = Path(root) / name
-                # don't include the output zip itself (if re-running)
-                if fp == zip_path or fp == tmp:
-                    continue
-                z.write(fp, arcname=str(fp.relative_to(base)))
-
-    os.replace(tmp, zip_path)
-    return str(zip_path)
-
-
-from zipfile import ZipFile, is_zipfile
-
-def cleanup_after_zip(date_dir: Path, zip_name: str = "results.zip") -> None:
-    """
-    Remove all files under date_dir except the zip. Then prune empty dirs.
-    Only runs if the zip exists and passes ZipFile().testzip().
-    """
-    date_dir = Path(date_dir)
-    zip_path = date_dir / zip_name
-
-    # Safety checks
-    if not zip_path.exists() or not is_zipfile(zip_path):
-        raise RuntimeError(f"{zip_path} missing or not a valid zip")
-
-    # Ensure the zip is readable (returns None on success)
-    with ZipFile(zip_path, "r") as zf:
-        bad = zf.testzip()
-        if bad is not None:
-            raise RuntimeError(f"Zip integrity check failed on member: {bad}")
-
-    # Delete all files except the zip itself
-    for p in date_dir.rglob("*"):
-        if p.is_file() and p != zip_path:
-            p.unlink()
-
-    # Remove now-empty directories (bottom-up)
-    for p in sorted(date_dir.rglob("*"), reverse=True):
-        if p.is_dir():
-            try:
-                p.rmdir()
-            except OSError:
-                pass  # not empty (e.g., contains the zip)
-
+    fname = out_dir / f"{key}.pkl.gz"
+    with gzip.open(fname, "wb") as fh:
+        pickle.dump(
+            {
+                "id_key": key,
+                "centroids": digest.get_centroids(),   # <-- keep this
+                "quantiles": quantiles,                # 
+                "limits": limits,
+            },
+            fh,
+            protocol=pickle.HIGHEST_PROTOCOL,
+        )
 
 
 # will later save the results in a sqlite database
@@ -145,8 +82,8 @@ def compute_and_save_results(
     #id_rows = []
     # 4) For each collection, open datasets and build jobs.
     for coll_name, files in list(collection_dict.items()):
-        #if coll_name != "inst3_2d_asm_Nx":
-            #break
+        if coll_name != "inst3_2d_asm_Nx":
+            break
         # 4.1) Open multi-file dataset lazily with xarray/dask.
         start = datetime.now()
         ds = xr.open_mfdataset(
@@ -213,13 +150,18 @@ def compute_and_save_results(
 
                     # 4.7) Define delayed analytics pipeline for this slice.
                     @delayed
-                    def analyse(arr, key=id_key):
-                        digest = create_digest(arr, compression=300)
-                        quantiles = get_quantiles_from_tdigest(digest)
-                        limits = check_limit(arr)
-                        save_one_result(key, digest, quantiles, limits, DATE_DIR) 
+                    def analyse(arr, key=id_key, month, year, model):
+                        #digest = create_digest(arr, compression=300)
+                        #quantiles = get_quantiles_from_tdigest(digest)
+                        #limits = check_limit(arr)
+                        #save_one_result(key, digest, quantiles, limits, DATE_DIR) 
                         #stored_results.append([key, digest, quantiles, limits])
-                        return key  # small confirmation
+                        #return key  # small confirmation
+                       
+                        # identify the database address(model)
+                        # go to relevant table query(id_key, month, year)
+                        # get percentile - query_percentile_from_db
+                        # now, perform sanity check
 
                     # 4.8) Queue the job.
                     delayed_jobs.append(analyse(flat))
@@ -253,7 +195,7 @@ def compute_and_save_results(
 
 # ------------------------------------------------------------------
 if __name__ == "__main__":
-    out_dir = "/discover/nobackup/ashiklom/thamzey/HOME/quadsql/quads/data_from_newquads" #"/home/sadhika8/JupyterLinks/nobackup/quads_v1_results/geosfp"
+    out_dir = "/home/sadhika8/JupyterLinks/nobackup/quads_v1_results/geosfp"
     model = "GEOSFP"
     date = datetime(2024, 6, 19)
     data_yaml_file = "/home/sadhika8/JupyterLinks/nobackup/quads/conf/dataserver.yaml"
@@ -267,12 +209,3 @@ if __name__ == "__main__":
         out_dir=out_dir,
     )
 
-    # Zip the entire date directory at the end
-    date_dir = Path(out_dir) / date.strftime("%Y-%m-%d")  # <-- define it here
-    zip_path = date_dir / "results.zip"
-    print("Zipping date directory...")
-    zipped = zip_dir(date_dir, zip_path)
-    print(f"✔ Zipped to: {zipped}")
-    # Now remove the tiny files
-    cleanup_after_zip(date_dir, zip_name="results.zip")
-    print("✔ Cleaned up loose files.")
