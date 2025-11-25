@@ -6,4 +6,8 @@
 #SBATCH --error=file.%j.err    # stderr goes herei
 
 module load python/GEOSpyD
-python lowm_para_serial.py
+##python lowm_para_serial.py
+##python run_monthly_batch.py
+#python compute_and_save_daily_digests.py
+#python merge_digests_and_write_pickle.py
+python lowm_para_serial_for_users.py

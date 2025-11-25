@@ -13,14 +13,17 @@ median_scalar =  6
 #PSI_threshold = 1.5
 
 def cdf(q, reference_quantile_data):
-    # CHANGED: pick nearest quantile instead of exact float equality
-    data, quantiles = reference_quantile_data  # comes from get_quantiles_from_tdigest, gives two lists data, quantiles
-    quantiles = np.asarray(quantiles)
-    idx = int(np.argmin(np.abs(quantiles - q)))
+    """given a reference_quantile data, a tuple of quantile data and quantile list, and q, find 
+    what data is there at quantile q"""
+    # pick nearest quantile instead of exact float equality
+    data, quantile_list = reference_quantile_data  # comes from get_quantiles_from_tdigest, gives two lists data, quantile list
+    quantile_list = np.asarray(quantile_list)
+    idx = int(np.argmin(np.abs(quantile_list - q)))
     return data[idx]
 
-def fence(reference_quantile_data):
-    data = reference_quantile_data
+def fence(data):
+    """find the fence for the given reference_quantile_data"""
+    #data = reference_quantile_data
     i = cdf(1-innerq, data)
     o = cdf(1-outerq, data)
     r = o - i

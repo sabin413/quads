@@ -1,25 +1,22 @@
-# from __future__ import annotations
+# This is the main python scripts for quads
+
 from pathlib import Path
 from datetime import datetime
 from typing import Dict
 import pickle
-import gzip
+import os
 
 import yaml
 import xarray as xr
-import pandas as pd
 import dask
 from dask import delayed
-from dask.diagnostics import Profiler, ResourceProfiler, visualize
+from dask.diagnostics import Profiler, ResourceProfiler 
+
+from zipfile import ZipFile, is_zipfile, ZIP_DEFLATED
+import shutil
 
 from get_collections_and_files import list_files_and_excluded_vars
 from make_tdigest import create_digest, get_quantiles_from_tdigest
-from tdfence import check_limit
-from pytdigest import TDigest  # for typing of `digest`
-
-from strid_uuid import make_id_uuid
-import os
-from zipfile import ZipFile, ZIP_DEFLATED
 
 # Coordinate name preferences (in order)
 LEV_NAMES = ["lev", "level", "pressure"]
@@ -34,7 +31,7 @@ def load_strata(strata_yaml_file: str | Path) -> Dict[str, Dict]:
     with open(strata_yaml_file, "r") as f:
         return yaml.safe_load(f)["STRATA"]
 
-def save_one_result(key, digest, quantiles, limits, out_dir: Path) -> None:
+def save_one_result(key, digest, quantiles, out_dir: Path) -> None:
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -42,7 +39,6 @@ def save_one_result(key, digest, quantiles, limits, out_dir: Path) -> None:
         "id_key": key,
         "centroids": digest.get_centroids(),
         "quantiles": quantiles,
-        "limits": limits,
     }
 
     final = out_dir / f"{key}.pkl"
@@ -76,12 +72,11 @@ def zip_dir(src_dir: Path, zip_path: Path) -> str:
     return str(zip_path)
 
 
-from zipfile import ZipFile, is_zipfile
 
 def cleanup_after_zip(date_dir: Path, zip_name: str = "results.zip") -> None:
     """
-    Remove all files under date_dir except the zip. Then prune empty dirs.
-    Only runs if the zip exists and passes ZipFile().testzip().
+    Keep <date_dir>/<zip_name>; remove everything else under <date_dir>.
+    Only runs if <zip_name> exists and passes ZipFile().testzip().
     """
     date_dir = Path(date_dir)
     zip_path = date_dir / zip_name
@@ -96,20 +91,17 @@ def cleanup_after_zip(date_dir: Path, zip_name: str = "results.zip") -> None:
         if bad is not None:
             raise RuntimeError(f"Zip integrity check failed on member: {bad}")
 
-    # Delete all files except the zip itself
-    for p in date_dir.rglob("*"):
-        if p.is_file() and p != zip_path:
-            p.unlink()
-
-    # Remove now-empty directories (bottom-up)
-    for p in sorted(date_dir.rglob("*"), reverse=True):
-        if p.is_dir():
+    # Remove everything at the top-level except the zip
+    for entry in date_dir.iterdir():
+        if entry == zip_path:
+            continue
+        if entry.is_dir():
+            shutil.rmtree(entry)   # removes directory and all contents
+        else:
             try:
-                p.rmdir()
-            except OSError:
-                pass  # not empty (e.g., contains the zip)
-
-
+                entry.unlink()
+            except FileNotFoundError:
+                pass  # in case it was removed between listing and unlink
 
 # will later save the results in a sqlite database
 
@@ -141,8 +133,6 @@ def compute_and_save_results(
     DATE_DIR = OUT_DIR / date.strftime("%Y-%m-%d")
     DATE_DIR.mkdir(parents=True, exist_ok=True)
 
-    final_results = []
-    #id_rows = []
     # 4) For each collection, open datasets and build jobs.
     for coll_name, files in list(collection_dict.items()):
         #if coll_name != "inst3_2d_asm_Nx":
@@ -204,20 +194,14 @@ def compute_and_save_results(
                     id_key = f"{coll_name}|{var}|{lev_val}|{sname}"
                     # find idstring and uuid here
                     
-                    #stratum_da = da_lev.sel({lat_name: lat_slice})
-                    #idstring, uid = make_id_uuid(stratum_da, model, coll_name, var, lat_name, lev_dim, nlev_total=(len(ds[lev_dim]) if lev_dim else 0))
-                    #print(idstring, uid)
-                    #id_rows.append({"model": model, "collection": coll_name,"variable": var,"level": -1 if lev_val is None 
-                                   # else lev_val,"stratum": sname,"idstring": idstring,"uuid": uid,})
-
 
                     # 4.7) Define delayed analytics pipeline for this slice.
                     @delayed
                     def analyse(arr, key=id_key):
                         digest = create_digest(arr, compression=300)
                         quantiles = get_quantiles_from_tdigest(digest)
-                        limits = check_limit(arr)
-                        save_one_result(key, digest, quantiles, limits, DATE_DIR) 
+                        #limits = check_limit(arr)
+                        save_one_result(key, digest, quantiles, DATE_DIR) 
                         #stored_results.append([key, digest, quantiles, limits])
                         return key  # small confirmation
 
@@ -230,32 +214,19 @@ def compute_and_save_results(
         with Profiler() as prof, ResourceProfiler(dt=0.1) as rprof:
             start = datetime.now()
             finished = dask.compute(*delayed_jobs, scheduler="threads")
+            #finished = dask.compute(*delayed_jobs, scheduler="processes", num_workers=40)
             end = datetime.now()
             print(
                 f"✔ {len(finished)} results written for collection {coll_name} "
                 f"in {(end - start).total_seconds()} secs"
             )
 
-        # 6) (Optional) Save Dask timeline chart.
-        # visualize([prof, rprof], filename=timeline_html)
-        # print(f"Dask timeline saved: {timeline_html}")
-
-        # 7) Accumulate results for this collection.
-        final_results.extend(stored_results)
-
-    # 8) Return results across all collections.
-    #ids_df = pd.DataFrame(id_rows, columns=["model","collection","variable","level","stratum","idstring","uuid"])
-    # save alongside results
-    #ids_df.to_csv(DATE_DIR / "ids.csv", index=False)
-
-    return final_results
-
 
 # ------------------------------------------------------------------
 if __name__ == "__main__":
     out_dir = "/discover/nobackup/ashiklom/thamzey/HOME/quadsql/quads/data_from_newquads" #"/home/sadhika8/JupyterLinks/nobackup/quads_v1_results/geosfp"
     model = "GEOSFP"
-    date = datetime(2024, 6, 19)
+    date = datetime(2024, 5, 20)
     data_yaml_file = "/home/sadhika8/JupyterLinks/nobackup/quads/conf/dataserver.yaml"
     strata_file = "/home/sadhika8/JupyterLinks/nobackup/quads/conf/strata.yaml"
 

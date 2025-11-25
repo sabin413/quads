@@ -1,7 +1,6 @@
 import numpy as np
 from pytdigest import TDigest        # explicit package
 
-
 def create_digest(data, compression=300):
     """Create a t-digest for given data and compression parameter."""
     td = TDigest.compute(data, compression=compression)  # vectorised C loop

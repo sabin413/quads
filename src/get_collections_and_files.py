@@ -9,15 +9,14 @@ def list_files_and_excluded_vars(
     data_yaml_file: str | Path
 ) -> tuple[list[str], Dict[str, list[str]], list[str]]:
     """
-    Find a list of files in each collections for a model/date using only the collection token embedded in filenames.
-
-    Behavior:
-      - Resolves the root directory from a YAML file, also gets a list of 'COLLECTIONS'.
+    For given model and date, finds a list of files in each collections using only the collection token embedded in filenames.
+      - Reads the address of the data directory from an YAML file, also gets a list of 'COLLECTIONS'.
       - For each collection listed in the YAML, finds files whose names contain the
         collection token (substring match) within that directory tree.
       - Keeps only files with .nc or .nc4 extensions.
       - Returns a list of all files, a (collection: files_list) dictionary,
         and the list of excluded variables EXCLUDED_VARS.
+      - Please see a sample yaml file (/home/sadhika8/JupyterLinks/nobackup/quads/conf/dataserver.yaml) 
 
     Parameters
     ----------
@@ -41,6 +40,8 @@ def list_files_and_excluded_vars(
 
     # Resolve the search root for this date.
     root = Path(date.strftime(cfg['SRC'])).expanduser()
+    
+    #print(root)
 
     # Collections must be provided in the YAML.
     collections = [str(c).strip() for c in cfg['COLLECTIONS'] if str(c).strip()]
@@ -51,10 +52,15 @@ def list_files_and_excluded_vars(
 
     # Search per collection by token in filename; filter by extension.
     for c in collections:
-        pattern = f"*{c}*"
+        #pattern = f"*{c}*"
+        if '.' in c:
+            pattern = f"*{c}.*"
+        else:
+            pattern = f"*{c}.[0-9]*"
+
         hits = [
             str(p)
-            for p in root.rglob(pattern)
+            for p in root.glob(pattern) # this does not look into subdirs
             if p.suffix in allowed_exts
         ]
         collection_map[c] = hits
@@ -66,11 +72,14 @@ def list_files_and_excluded_vars(
     return files, collection_map, excluded
 
 if __name__ == "__main__":
-    results = list_files_and_excluded_vars("GEOSFP", datetime(2024, 6, 25),"/home/sadhika8/JupyterLinks/nobackup/quads/conf/dataserver.yaml") 
-    print(len(results[1]['inst3_2d_asm_Nx']))
-
+    results = list_files_and_excluded_vars("MERRA2", datetime(2024, 6, 25),"/home/sadhika8/JupyterLinks/nobackup/quads/conf/dataserver.yaml") 
+    #print(results[1]['inst1_2d_int_Nx'])
+    dic = results[1]
+    for key, value in dic.items():
+        print(key, len(value))
+    print(dic["tavgM_3d_trb_Np"])
 
 ## NOTE:1.  The file names for each collection is done simply matching the collection name embedded inside the file names. More robust matching can be done
 # by putting more matching criterion, such as matching file patterns using the "FILES" entry (currently not used) from the .YAML
-# 2. To include more models, expand the .YAML file
+
 

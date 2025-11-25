@@ -1,0 +1,13 @@
+*.err
+*.out
+*.txt
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual envs
+.venv/
+venv/
+env/
+

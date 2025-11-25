@@ -2,7 +2,7 @@
 from pathlib import Path
 import sqlite3
 
-DB_PATH = Path("/home/sadhika8/JupyterLinks/nobackup/quads_database/geosfp_monthly_aggregated_digests_and_quantiles.db")
+DB_PATH = Path("/home/sadhika8/JupyterLinks/nobackup/quads_database/geosfp_monthly_aggregated_centroids_and_quantiles.db")
 DB_PATH.parent.mkdir(parents=True, exist_ok=True)
 
 with sqlite3.connect(str(DB_PATH)) as conn:
