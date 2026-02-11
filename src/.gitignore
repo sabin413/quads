@@ -1,0 +1,25 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+*.ipynb
+
+# --- Local data / debug artifacts ---
+*.pkl
+*.db
+*.sqlite
+*.sqlite3
+
+# --- Logs / temp ---
+*.log
+*.tmp
+*.swp
+.DS_Store
+
+# --- Slurm ---
+slurm-*.out
+slurm-*.err
+
