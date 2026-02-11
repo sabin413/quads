@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
-#SBATCH --job-name=data_compress
+#SBATCH --job-name=quads_merra2
 #SBATCH --account=s2441
-#SBATCH --time=12:00:00
+#SBATCH --constraint=mil
+#SBATCH --qos=long
+#SBATCH --time=24:00:00
 #SBATCH --nodes=1
 #SBATCH --exclusive
 #SBATCH --output=file.%A_%a.out     # %A = job ID, %a = array index
@@ -23,7 +25,7 @@ DATE_STR="${YEAR}-${MONTH_PADDED}-${DAY_PADDED}"
 
 echo "Running for DATE=${DATE_STR}, MODEL=${MODEL}"
 
-python compute_and_save_daily_digests.py \
+srun python -u compute_and_save_daily_digests.py \
     --date "${DATE_STR}" \
     --model "${MODEL}"
 

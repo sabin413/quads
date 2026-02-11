@@ -1,9 +1,13 @@
+# merge daily pickle files into monthly pickles based on id_key
+
 from __future__ import annotations
 
 from pathlib import Path
 import calendar
 import pickle
 import os
+import argparse
+import numpy as np
 
 from pytdigest import TDigest
 from make_tdigest import get_quantiles_from_tdigest
@@ -30,14 +34,13 @@ def merge_month_for_model(
 
     Output structure (pickled):
 
-        {
-            id_key: {
+        [
+                {"id_key": id_key'
                 "centroids": merged_centroids,
-                "quantiles": quantiles,
-                "quantile_list": qlist,
+                "quantiles": (quantiles,qlist)
             },
             ...
-        }
+        ]
     """
     base = Path(base_out_dir)
     year_dir = base / model / f"{year:04d}"
@@ -52,42 +55,52 @@ def merge_month_for_model(
     # Bucket: id_key -> TDigest
     digests_by_key: dict[str, TDigest] = {}
 
+
     for day in range(1, last_day + 1):
         day_str = f"{year:04d}-{month:02d}-{day:02d}"
         daily_file = month_dir / f"{day_str}.pkl"
 
         if not daily_file.exists():
-            print(f"Skipping missing daily file: {daily_file}")
+            print(f"WARNING!!! Skipping missing daily file: {daily_file}")
             continue
 
         print(f"Loading {daily_file}")
         daily_payloads = load_daily_results(daily_file)
 
         for payload in daily_payloads:
-            key_id = payload["id_key"]
+            id_key = payload["id_key"]
             centroids = payload["centroids"]  # list of (mean, count)
+            
+            td_total = digests_by_key.get(id_key)
+            td_day = TDigest.of_centroids(np.asarray(centroids), compression=compression)
+            
+            digests_by_key[id_key] = td_day if td_total is None else TDigest.combine(td_total, td_day)
 
-            # Get or create TDigest for this key_id
-            td = digests_by_key.get(key_id)
-            if td is None:
-                td = TDigest(compression=compression)
-                digests_by_key[key_id] = td
+            # Get or create TDigest for this id_key
+            # td = digests_by_key.get(id_key)
+            #if td is None:
+            #    td = TDigest(compression=compression)
+            #    digests_by_key[id_key] = td
 
             # Merge centroids into TDigest
-            for mean, count in centroids:
-                td.update(float(mean), float(count))
+            #for mean, count in centroids:
+            #    td.update(float(mean), float(count))
 
-    # Build final results: one entry per key_id
-    results = {}
-    for key_id, td in digests_by_key.items():
+    # Build final results: one entry per id_key
+    #results = {}
+    results = []
+    for id_key, td in digests_by_key.items():
         merged_centroids = td.get_centroids()
-        quantiles, qlist = get_quantiles_from_tdigest(td)
-        results[key_id] = {
+        #quantiles, qlist = get_quantiles_from_tdigest(td)
+        quantiles_and_qlist = get_quantiles_from_tdigest(td)
+        
+        results.append({
+            "id_key": id_key,
             "centroids": merged_centroids,
-            "quantiles": quantiles,
-            "quantile_list": qlist,
-        }
+            "quantiles": quantiles_and_qlist,
+            })
 
+    # "quantiles"- quantiles and levels
     # Write monthly merged pickle atomically
     month_str = f"{year:04d}-{month:02d}"
     out_name = f"monthly_merged_digest_{model}_{month_str}.pkl"
@@ -95,7 +108,7 @@ def merge_month_for_model(
     tmp = month_dir / f".{out_name}.tmp"
 
     with open(tmp, "wb") as fh:
-        pickle.dump(results, fh, protocol=pickle.HIGHEST_PROTOCOL)
+        pickle.dump(results, fh, protocol=4)
 
     os.replace(tmp, final)
     print(f"✅ Wrote monthly merged file: {final}")
@@ -103,17 +116,23 @@ def merge_month_for_model(
 
 
 if __name__ == "__main__":
-    # Adjust as needed
+
+    # Adjust as needed - will stay same for all models
     BASE_OUT_DIR = "/home/sadhika8/JupyterLinks/nobackup/quads_data"
-    MODEL = "GEOSFP"
-    YEAR = 2024
-    MONTH = 5
+    
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--model", required=True)
+    ap.add_argument("--year", type=int, required=True)
+    ap.add_argument("--month", type=int, required=True)
+    ap.add_argument("--compression", type=int, default=300)
+    a = ap.parse_args()
+
 
     merge_month_for_model(
         base_out_dir=BASE_OUT_DIR,
-        model=MODEL,
-        year=YEAR,
-        month=MONTH,
-        compression=300,
+        model=a.model,
+        year=a.year,
+        month=a.month,
+        compression=a.compression,
     )
 

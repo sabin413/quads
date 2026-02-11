@@ -5,7 +5,7 @@ import sqlite3
 import pickle
 
 
-def load_monthly_pickle(base_out_dir: str, model: str, year: int, month: int) -> dict:
+def load_monthly_pickle(base_out_dir: str, model: str, year: int, month: int) -> list:
     base = Path(base_out_dir)
     month_str = f"{year:04d}-{month:02d}"
     monthly_file = (
@@ -30,7 +30,7 @@ def insert_month_into_db(
     model: str,
     year: int,
     month: int,
-    monthly_data: dict,
+    monthly_data: list[dict],
     compression: int,
 ):
     if not db_path.exists():
@@ -40,15 +40,16 @@ def insert_month_into_db(
     with sqlite3.connect(str(db_path)) as conn:
         cur = conn.cursor()
         cur.execute("PRAGMA journal_mode=WAL;")
-        cur.execute("PRAGMA synchronous=OFF;")
+        cur.execute("PRAGMA synchronous=FULL;")
 
         cur.execute("BEGIN;")
         try:
             rows = []
-            for id_string, payload in monthly_data.items():
+            for payload in monthly_data:
+                id_string = payload["id_key"]
                 centroids = payload["centroids"]
-                quantiles = payload["quantiles"]
-                qlist = payload["quantile_list"]
+                quantiles, qlist = payload["quantiles"]
+                #qlist = payload["quantile_list"]
 
                 rows.append(
                     (
@@ -58,20 +59,21 @@ def insert_month_into_db(
                         id_string,
                         compression,
                         pickle.dumps(
-                            centroids, protocol=pickle.HIGHEST_PROTOCOL
+                            centroids, protocol=4
                         ),
                         pickle.dumps(
-                            quantiles, protocol=pickle.HIGHEST_PROTOCOL
+                            quantiles, protocol=4
                         ),
                         pickle.dumps(
-                            qlist, protocol=pickle.HIGHEST_PROTOCOL
+                            qlist, protocol=4
                         ),
                     )
                 )
+            
+            table_name = model.lower()
 
-            cur.executemany(
-                """
-                INSERT INTO geosfp (
+            sql = f"""
+                INSERT INTO {table_name} (
                     model, year, month, id_string,
                     compression, centroids, quantiles, quantile_list
                 )
@@ -82,9 +84,11 @@ def insert_month_into_db(
                     centroids     = excluded.centroids,
                     quantiles     = excluded.quantiles,
                     quantile_list = excluded.quantile_list
-                """,
-                rows,
-            )
+                """
+
+            cur.executemany(sql, rows)
+
+
 
             conn.commit()
             print(f"Inserted/updated {len(rows)} rows for {model} {year}-{month:02d}")
@@ -95,14 +99,15 @@ def insert_month_into_db(
 
 def main():
     base_out_dir = "/home/sadhika8/JupyterLinks/nobackup/quads_data"
-    model = "GEOSFP"
+    model = "MERRA2"
+    model_lower = model.lower()
     year = 2024
     month = 5
     compression = 300
 
     db_path = Path(
         "/home/sadhika8/JupyterLinks/nobackup/quads_database/"
-        "geosfp_monthly_aggregated_centroids_and_quantiles.db"
+        f"{model_lower}_monthly_aggregated_centroids_and_quantiles.db"
     )
 
     monthly_data = load_monthly_pickle(

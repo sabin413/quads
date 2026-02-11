@@ -1,5 +1,5 @@
 # This is the main python script for quads
-''' Computes daily digests and saves them on a .pkl file. For MERRA2 and GESOCF, there will be a montly digest as the source data are stored in montly subdirectories'''
+''' Computes daily digests and saves them on a .pkl file. For MERRA2 and GEOSIT, there will be a montly digest as the source data are stored in montly subdirectories'''
 
 from pathlib import Path
 from datetime import datetime
@@ -9,9 +9,10 @@ import os
 
 import yaml
 import xarray as xr
+import numpy as np
 import dask
-from dask import delayed
-from dask.diagnostics import Profiler, ResourceProfiler
+#from dask import delayed
+#from dask.diagnostics import Profiler, ResourceProfiler
 
 from get_collections_and_files import list_files_and_excluded_vars
 from make_tdigest import create_digest, get_quantiles_from_tdigest
@@ -30,25 +31,41 @@ def load_strata(strata_yaml_file: str | Path) -> Dict[str, Dict]:
         return yaml.safe_load(f)["STRATA"]
 
 
+@dask.delayed
+def analyse(da_sel, key):
+    """ processes one chunk of data generating results"""
+    try:
+        arr_np = np.asarray(da_sel) # becomes numpy array
+        flat = arr_np.reshape(-1)
+        digest = create_digest(flat, compression=300)
+        quantiles = get_quantiles_from_tdigest(digest)
+        payload = {
+            "id_key": key,
+            "centroids": digest.get_centroids(),
+            "quantiles": quantiles,
+        }
+        #print("done")
+        return payload
+    except Exception as e:
+        raise RuntimeError(f"analyse() failed for key={key}") from e
+
 # ------------------------------------------------------------------
 # main driver
 # ------------------------------------------------------------------
-def compute_and_save_results(
+def compute_results(
     model: str,
     date: datetime,
     data_yaml_file: str,
     strata_file: str,
-    out_dir: str,
 ):
     """
-    Computes t-digests and returns all results for this day (or month based on model) as a list
+    Computes t-digests and returns all results for this day (or month, depending on the model) as a list
     of payload dicts. Writing to disk is handled in __main__.
-    <data> - day of interest
-    <data_yaml_file> - path of config file with input data addressse
+    <date> - day of interest
+    <data_yaml_file> - path of config file with input data address
     <strata_file> - path of config file listing lat/lon strata
-    <out_dir> - path of output directory
     """
-    # 1) Resolve files and collections from YAML.
+    # 1) Resolve get collections, files, and variables to exclude
     _, collection_dict, excluded = list_files_and_excluded_vars(
         model=model,
         date=date,
@@ -58,16 +75,20 @@ def compute_and_save_results(
     # 2) Load strata definitions.
     strata = load_strata(strata_file)
 
-    # 3) Ensure base output dir exists (model/year/month handled in __main__).
-    OUT_DIR = Path(out_dir)
-    OUT_DIR.mkdir(exist_ok=True)
-
     # Collect all payloads for this date in memory (on driver).
     all_payloads_for_day = []
 
-    # 4) For each collection, open datasets and build jobs.
-    for coll_name, files in list(collection_dict.items()):
-        # 4.1) Open multi-file dataset lazily with xarray/dask.
+    # 3) For each collection, open datasets and build jobs.
+    for coll_name, files in collection_dict.items():
+        print(f"Processing collection: {coll_name}")
+        if not files:
+            print(f"{coll_name} has no files to process")
+            continue
+        # 3.1) Open multi-file dataset lazily with xarray/dask.
+
+        # if coll_name != "inst1_2d_asm_Nx":
+        #    continue
+
         start = datetime.now()
         ds = xr.open_mfdataset(
             files,
@@ -80,74 +101,75 @@ def compute_and_save_results(
             chunks="auto",
             parallel=True,
         )
-        print(ds.dims)
+        # print(ds.dims)
         end = datetime.now()
         print(f"time to open metadataset: {(end - start).total_seconds()}")
 
-        # 4.2) Identify coordinate names (lat, optional level).
-        lat_name = next(c for c in LAT_NAMES if c in ds.coords)
+        # 3.2) Identify coordinate names (lat, optional level).
+        lat_name = next((c for c in LAT_NAMES if c in ds.coords), None)
         lev_dim = next((d for d in LEV_NAMES if d in ds.coords), None)
 
         delayed_jobs = []
 
-        # 4.3) For each variable...
+        lat_arr = ds[lat_name].values
+        is_strictly_ascending  = np.all(np.diff(lat_arr) > 0) 
+        is_strictly_descending = np.all(np.diff(lat_arr) < 0) 
+
+
+        # 3.3) For each variable...
         for var in ds.data_vars:
             da = ds[var]
 
-            # 4.4) For each level (or None if no level coord)...
+            #print(var)
+            # 3.4) For each level (or None if no level coord)...
             levels = (
                 ds[lev_dim].values
                 if lev_dim and (lev_dim in da.coords)
                 else [None]
             )
-
+            # collection, variable, level - data
             for lev_val in levels:
                 da_lev = da.sel({lev_dim: lev_val}) if lev_val is not None else da
 
-                # 4.5) For each stratum (lat band)...
+                # 3.5) For each stratum (lat band) -- process stratum level data
                 for sname, sdef in strata.items():
-                    lat_slice = slice(sdef["lat"]["min"], sdef["lat"]["max"])
-                    dims2stack = [d for d in da_lev.dims]
+                    lat_min, lat_max = sdef["lat"]["min"], sdef["lat"]["max"]
+                    if is_strictly_ascending:
+                        lat_slice = slice(lat_min, lat_max)
+                    elif is_strictly_descending:
+                        lat_slice = slice(lat_max, lat_min)
+                    else:
+                        raise ValueError(f"Latitude coordinate {lat_name} is not monotonic: {lat_arr}")
 
-                    # 4.6) Build a flat sample array (lazy dask array).
-                    flat = (
-                        da_lev.sel({lat_name: lat_slice})
-                        .stack(sample=dims2stack)
-                        .data.reshape(-1)  # lazy
-                    )
+                    #dims2stack = [d for d in da_lev.dims]
+                
+                    #flat = (
+                    #    da_lev.sel({lat_name: lat_slice})
+                    #    .stack(sample=dims2stack)
+                    #    .data # lazy selection 
+                    #)
+
+                    da_sel = da_lev.sel({lat_name: lat_slice})
 
                     id_key = f"{coll_name}|{var}|{lev_val}|{sname}"
 
-                    # 4.7) Define delayed analytics pipeline for this slice.
-                    @delayed
-                    def analyse(arr, key=id_key):
-                        digest = create_digest(arr, compression=300)
-                        quantiles = get_quantiles_from_tdigest(digest)
-                        payload = {
-                            "id_key": key,
-                            "centroids": digest.get_centroids(),
-                            "quantiles": quantiles,  # same structure you used before
-                        }
-                        return payload
+                    # 3.6) Queue the job.
+                    delayed_jobs.append(analyse(da_sel, id_key))
 
-                    # 4.8) Queue the job.
-                    delayed_jobs.append(analyse(flat))
-
-        # 5) Execute all delayed jobs (reads ➜ computes ➜ returns payloads).
+        # 4) Execute all delayed jobs (reads ➜ computes ➜ returns payloads).
         if delayed_jobs:
-            with Profiler() as prof, ResourceProfiler(dt=0.1) as rprof:
-                start = datetime.now()
-                finished = dask.compute(*delayed_jobs, scheduler="threads")
-                end = datetime.now()
-                print(
-                    f"✔ {len(finished)} results computed for collection {coll_name} "
-                    f"in {(end - start).total_seconds()} secs"
-                )
+            start = datetime.now()
+            finished = dask.compute(*delayed_jobs, scheduler="threads", num_workers=40)
+            end = datetime.now()
+            print(
+                f"✔ {len(finished)} results computed for collection {coll_name} "
+                 f"in {(end - start).total_seconds()} secs"
+            )
 
             # finished is a tuple/list of payload dicts
             all_payloads_for_day.extend(finished)
 
-        del ds  # help GC
+        ds.close()
 
     return all_payloads_for_day
 
@@ -172,12 +194,11 @@ if __name__ == "__main__":
     data_yaml_file = "/home/sadhika8/JupyterLinks/nobackup/quads/conf/dataserver.yaml"
     strata_file = "/home/sadhika8/JupyterLinks/nobackup/quads/conf/strata.yaml"
 
-    results = compute_and_save_results(
+    results = compute_results(
         model=model,
         date=date,
         data_yaml_file=data_yaml_file,
         strata_file=strata_file,
-        out_dir=out_dir,
     )
 
     # One daily file under out_dir/model/YYYY/MM/YYYY-MM-DD.pkl, one monthly for MERRA2 and GEOSIT
@@ -192,9 +213,10 @@ if __name__ == "__main__":
     if model in ["GEOSFP", "GEOSCF"]:
         final = month_dir / f"{day_str}.pkl"
         tmp = month_dir / f".{day_str}.pkl.tmp"
-    else:
-        final = month_dir / f"{month_str}.pkl"
-        tmp = month_dir / f".{month_str}.pkl.tmp"
+    else: # directly writes a monthly aggregated .pkl in case of GEOSIT and MERRA2
+        aggregated_month_str = f"monthly_merged_digest_{model}_{month_str}"
+        final = month_dir / f"{aggregated_month_str}.pkl"
+        tmp = month_dir / f".{aggregated_month_str}.pkl.tmp"
 
     with open(tmp, "wb") as fh:
         pickle.dump(results, fh, protocol=pickle.HIGHEST_PROTOCOL)
