@@ -66,6 +66,7 @@ def merge_month_for_model(
 
         print(f"Loading {daily_file}")
         daily_payloads = load_daily_results(daily_file)
+        daily_payloads = [payload for payload in daily_payloads if payload is not None]
 
         for payload in daily_payloads:
             id_key = payload["id_key"]
@@ -75,16 +76,6 @@ def merge_month_for_model(
             td_day = TDigest.of_centroids(np.asarray(centroids), compression=compression)
             
             digests_by_key[id_key] = td_day if td_total is None else TDigest.combine(td_total, td_day)
-
-            # Get or create TDigest for this id_key
-            # td = digests_by_key.get(id_key)
-            #if td is None:
-            #    td = TDigest(compression=compression)
-            #    digests_by_key[id_key] = td
-
-            # Merge centroids into TDigest
-            #for mean, count in centroids:
-            #    td.update(float(mean), float(count))
 
     # Build final results: one entry per id_key
     #results = {}

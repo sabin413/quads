@@ -34,9 +34,11 @@ def load_strata(strata_yaml_file: str | Path) -> Dict[str, Dict]:
 @dask.delayed
 def analyse(da_sel, key):
     """ processes one chunk of data generating results"""
-    try:
-        arr_np = np.asarray(da_sel) # becomes numpy array
-        flat = arr_np.reshape(-1)
+    arr_np = np.asarray(da_sel) # becomes numpy array
+    flat = arr_np.reshape(-1)
+        
+    flat = flat[~np.isnan(flat)]
+    if flat.size > 0:
         digest = create_digest(flat, compression=300)
         quantiles = get_quantiles_from_tdigest(digest)
         payload = {
@@ -46,9 +48,8 @@ def analyse(da_sel, key):
         }
         #print("done")
         return payload
-    except Exception as e:
-        raise RuntimeError(f"analyse() failed for key={key}") from e
-
+    else:
+        return None
 # ------------------------------------------------------------------
 # main driver
 # ------------------------------------------------------------------

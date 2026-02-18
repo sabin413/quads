@@ -2,15 +2,15 @@
 from pathlib import Path
 import sqlite3
 
-DB_PATH = Path("/home/sadhika8/JupyterLinks/nobackup/quads_database/merra2_monthly_aggregated_centroids_and_quantiles.db")
+DB_PATH = Path("/home/sadhika8/JupyterLinks/nobackup/quads_database/geosfp_monthly_aggregated_centroids_and_quantiles.db")
 DB_PATH.parent.mkdir(parents=True, exist_ok=True)
 
 with sqlite3.connect(str(DB_PATH)) as conn:
     cur = conn.cursor()
     cur.execute("PRAGMA journal_mode=WAL;")
-    cur.execute("PRAGMA synchronous=OFF;")
+    cur.execute("PRAGMA synchronous=NORMAL;")
     cur.execute("""
-    CREATE TABLE IF NOT EXISTS merra2 (
+    CREATE TABLE IF NOT EXISTS geosfp (
         model          TEXT    NOT NULL,
         year           INTEGER NOT NULL,
         month          INTEGER NOT NULL,

@@ -22,6 +22,8 @@ def load_monthly_pickle(base_out_dir: str, model: str, year: int, month: int) ->
     with open(monthly_file, "rb") as fh:
         data = pickle.load(fh)
 
+    data = [p for p in data if p is not None]
+
     return data
 
 
@@ -88,21 +90,19 @@ def insert_month_into_db(
 
             cur.executemany(sql, rows)
 
-
-
             conn.commit()
             print(f"Inserted/updated {len(rows)} rows for {model} {year}-{month:02d}")
         except Exception:
             conn.rollback()
             raise
-
+# all or nothing writing -- either writes the entire month worth of rows or none -- conn.rollback() achieves that
 
 def main():
     base_out_dir = "/home/sadhika8/JupyterLinks/nobackup/quads_data"
-    model = "MERRA2"
+    model = "GEOSFP"
     model_lower = model.lower()
     year = 2024
-    month = 5
+    month = 4
     compression = 300
 
     db_path = Path(

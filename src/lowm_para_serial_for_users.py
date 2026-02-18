@@ -32,7 +32,7 @@ def load_strata(strata_yaml_file: str | Path) -> Dict[str, Dict]:
 def load_quantiles_from_db(db_path: Path, model: str, year: int, month: int, id_string: str):
     """
     Fetch (quantiles, quantile_list) for a given key/month from SQLite.
-    HARD FAIL if not found.
+    Print msg if not found.
     """
     with sqlite3.connect(str(db_path)) as conn:
         row = conn.execute(
@@ -41,12 +41,13 @@ def load_quantiles_from_db(db_path: Path, model: str, year: int, month: int, id_
             (model, year, month, id_string),
         ).fetchone()
 
-    if not row:
-        raise RuntimeError(
+    if row is None:
+        print(
             f"No reference quantiles in DB for "
             f"(model={model}, year={year}, month={month}, id_string='{id_string}') "
             f"at {db_path}"
         )
+        return None
 
     return pickle.loads(row[0]), pickle.loads(row[1])
 
@@ -61,8 +62,12 @@ def analyse(da_sel,
     arr_np = np.asarray(da_sel) # becomes numpy array
     data = arr_np.reshape(-1)
 
-    quantiles, qlist = load_quantiles_from_db(database_path, model, reference_year, reference_month, key)
-    
+    ref = load_quantiles_from_db(database_path, model, reference_year, reference_month, key)
+
+    if ref is None:
+        return None
+
+    quantiles, qlist = ref
     n_low, n_high, fence_low, fence_high = edge_check(data, (quantiles, qlist))
     #no_viol = int(n_low + n_high)
     return key, n_low, n_high, fence_low, fence_high,  quantiles, qlist
@@ -95,8 +100,8 @@ def compute_and_save_results(
     df = pd.DataFrame(columns=["id_string", "no_of_violations_left", "no_of_violations_right","fence_low","fence_high", "quantile_values", "q_list"])
 
     for coll_name, files in list(collection_dict.items()):
-        if coll_name != "inst3_2d_asm_Nx":
-            break
+        #if coll_name != "inst3_2d_asm_Nx":
+        #   continue
 
         ds = xr.open_mfdataset(
             files,
@@ -156,8 +161,13 @@ def compute_and_save_results(
 
         print(len(delayed_jobs))
         finished = dask.compute(*delayed_jobs, scheduler="threads")
-        print(len(finished))
-        df = pd.concat([df, pd.DataFrame(finished, columns=df.columns)], ignore_index=True)
+        finished = [x for x in finished if x is not None]
+        if finished:
+            new_df = pd.DataFrame(finished, columns=df.columns)
+            if df.empty:
+                df = new_df
+            else:
+                df = pd.concat([df, new_df], ignore_index=True)
     
     return df
 
