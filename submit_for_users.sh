@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #SBATCH --job-name=quads_user
 #SBATCH --account=s2441
-#SBATCH --time=4:00:00
+#SBATCH --time=3:00:00
 #SBATCH --nodes=1
 #SBATCH --exclusive
 #SBATCH --output=/home/sadhika8/JupyterLinks/nobackup/quads_dev/log_files/user.%j.out
@@ -23,7 +23,7 @@ source /home/sadhika8/JupyterLinks/nobackup/quads_dev/.venv/bin/activate # activ
 # User inputs (edit these only)
 # -----------------------------
 MODEL="GEOSFP"      # GEOSFP / GEOSCF / MERRA2 / GEOSIT
-DATE="2025-05-10"   # YYYY-MM-DD for GEOSFP/GEOSCF
+DATE="2024-05-10"   # YYYY-MM-DD for GEOSFP/GEOSCF
                     #  MERRA2/GEOSIT only needs YYYY-MM. But, the code expects the full format YYYY-MM-DD and ignores the DD part.
 
 # Export to Python

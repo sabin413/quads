@@ -194,9 +194,9 @@ if __name__ == "__main__":
 
     data_yaml_file = "/home/sadhika8/JupyterLinks/nobackup/quads/conf/dataserver.yaml"
     strata_file = "/home/sadhika8/JupyterLinks/nobackup/quads/conf/strata.yaml"
-    db_path = Path(
-        f"/home/sadhika8/JupyterLinks/nobackup/quads_database/{model_lower}_monthly_aggregated_centroids_and_quantiles.db"
-    )
+    db_path = Path(f"/home/sadhika8/JupyterLinks/nobackup/quads_database/{model_lower}_monthly_aggregated_centroids_and_quantiles.db")
+    results_path = Path(f"/home/sadhika8/JupyterLinks/nobackup/quads_results/{model_lower}")
+    results_path.mkdir(parents=True, exist_ok=True)
 
     print(f"Running QUADS user job for MODEL={model}, DATE={date_str}")
 
@@ -213,9 +213,10 @@ if __name__ == "__main__":
         ref_str = historical_reference_date.strftime("%Y-%m")
         df_var_name = f"quads_test_{model}_{date.strftime('%Y_%m_%d')}_reference_date_{ref_str}"
         out_file = f"{df_var_name}.pkl"
-        df.to_pickle(out_file)
+        out_path = results_path / out_file
+        df.to_pickle(out_path)
 
         print(f"Created DataFrame '{df_var_name}' with {len(df)} rows.")
-        print(f"✔ Saved DataFrame to ./{out_file}")
+        print(f"✔ Saved DataFrame to {out_path}")
         print(df.head())
 

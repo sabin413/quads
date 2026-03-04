@@ -1,7 +1,0 @@
-# to users: load the GEOSpyD module, and install libaries on top of it inside a virtual environment
-module load python/GEOSpyD
-git clone <quads_repo>
-cd quads_repo
-bash bootstrap.sh
-source .venv/bin/activate
-python your_script.py
