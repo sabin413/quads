@@ -1,0 +1,24 @@
+*.err
+*.out
+*.txt
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual envs
+.venv/
+venv/
+env/
+
+# pixi environments
+.pixi
+
+# misc
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+*.egg-info/
+dist/
+build/
+__pycache__/
+*.pyc

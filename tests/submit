@@ -1,0 +1,1 @@
+python -u test_compute_and_save_daily_digests.py --date "2023-01-01" --model "GEOSFP"
