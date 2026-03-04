@@ -1,0 +1,20 @@
+# check the number of files from a collection
+# check the number of variables and the expected number of chunks for each variable - 2d case, for example
+# 28 variables, 8 strata gives 224 chunks
+# verify that chunks make sense
+# verify that the computed t-digests out of those chunks makes sense - make a histogram out of the original data, compare with its daily
+# t-digest, then monthly aggregated t-digest from the saved database - almost done at this point
+# do it for two separate days
+#
+#
+# verify merging
+# verify that it compares well with the monthly merged digest
+# verify the collection names once again
+# commit and push
+# create issues on github
+# ask alexey about data storage locations
+#
+# go to user side
+# quick test
+# talk to users
+

@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 import sqlite3
 import pickle
-
+import os
 
 def load_monthly_pickle(base_out_dir: str, model: str, year: int, month: int) -> list:
     base = Path(base_out_dir)
@@ -99,10 +99,13 @@ def insert_month_into_db(
 
 def main():
     base_out_dir = "/home/sadhika8/JupyterLinks/nobackup/quads_data"
-    model = "GEOSFP"
+
+    # Read from environment (set by your .sh), fall back to defaults
+    model = os.environ.get("MODEL", "GEOSFP")
+    year = int(os.environ.get("YEAR", "2024"))
+    month = int(os.environ.get("MONTH", "4"))
+
     model_lower = model.lower()
-    year = 2024
-    month = 4
     compression = 300
 
     db_path = Path(

@@ -12,8 +12,8 @@ import pandas as pd
 import dask
 from dask import delayed
 
-from get_collections_and_files import list_files_and_excluded_vars
-from sanity_check_v2 import edge_check
+from quads.get_collections_and_files import list_files_and_excluded_vars
+from quads.sanity_check_v2 import edge_check
 
 # Coordinate name preferences (in order)
 LEV_NAMES = ["lev", "level", "pressure"]
@@ -175,19 +175,30 @@ def compute_and_save_results(
 # -----------------------------
 # __main__
 # -----------------------------
-if __name__ == "__main__":
 
-    model = "GEOSFP"
+if __name__ == "__main__":
+    import os
+
+    model = os.environ.get("MODEL", "GEOSFP")
+    date_str = os.environ.get("DATE", "2025-05-10")
+
+    date = datetime.strptime(date_str, "%Y-%m-%d")
+
     model_lower = model.lower()
-    date = datetime(2025, 5, 10)             
+
     historical_reference_dates = [
-            date - relativedelta(years=1, months=1),
-            date - relativedelta(years=1), 
-            date - relativedelta(years=1, months=-1),
+        date - relativedelta(years=1, months=1),
+        date - relativedelta(years=1),
+        date - relativedelta(years=1, months=-1),
     ]
+
     data_yaml_file = "/home/sadhika8/JupyterLinks/nobackup/quads/conf/dataserver.yaml"
     strata_file = "/home/sadhika8/JupyterLinks/nobackup/quads/conf/strata.yaml"
-    db_path = Path(f"/home/sadhika8/JupyterLinks/nobackup/quads_database/{model_lower}_monthly_aggregated_centroids_and_quantiles.db")
+    db_path = Path(
+        f"/home/sadhika8/JupyterLinks/nobackup/quads_database/{model_lower}_monthly_aggregated_centroids_and_quantiles.db"
+    )
+
+    print(f"Running QUADS user job for MODEL={model}, DATE={date_str}")
 
     for historical_reference_date in historical_reference_dates:
         df = compute_and_save_results(
@@ -197,9 +208,9 @@ if __name__ == "__main__":
             strata_file=strata_file,
             historical_reference_date=historical_reference_date,
             db_path=db_path,
-    )
+        )
 
-        ref_str = historical_reference_date.strftime("%Y-%m-%d")
+        ref_str = historical_reference_date.strftime("%Y-%m")
         df_var_name = f"quads_test_{model}_{date.strftime('%Y_%m_%d')}_reference_date_{ref_str}"
         out_file = f"{df_var_name}.pkl"
         df.to_pickle(out_file)
@@ -207,6 +218,4 @@ if __name__ == "__main__":
         print(f"Created DataFrame '{df_var_name}' with {len(df)} rows.")
         print(f"✔ Saved DataFrame to ./{out_file}")
         print(df.head())
-
-# for a comprehensive data analysis the users should be able to access the chunk of data they want to analyze -- I can write a script for that
 

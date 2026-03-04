@@ -10,9 +10,7 @@ import os
 import yaml
 import xarray as xr
 import numpy as np
-import dask
-#from dask import delayed
-#from dask.diagnostics import Profiler, ResourceProfiler
+import pandas as pd
 
 from get_collections_and_files import list_files_and_excluded_vars
 from make_tdigest import create_digest, get_quantiles_from_tdigest
@@ -31,25 +29,34 @@ def load_strata(strata_yaml_file: str | Path) -> Dict[str, Dict]:
         return yaml.safe_load(f)["STRATA"]
 
 
-@dask.delayed
+# ------------------------------------------------------------------
+# single-process analyse
+# ------------------------------------------------------------------
 def analyse(da_sel, key):
-    """ processes one chunk of data generating results"""
-    arr_np = np.asarray(da_sel) # becomes numpy array
+    """processes one chunk of data generating results (single-process, no dask)"""
+
+    arr_np = np.asarray(da_sel)  # becomes numpy array (forces compute)
     flat = arr_np.reshape(-1)
-        
+    #print(flat)
     flat = flat[~np.isnan(flat)]
+
     if flat.size > 0:
         digest = create_digest(flat, compression=300)
-        quantiles = get_quantiles_from_tdigest(digest)
-        payload = {
+        q_vals, q_list = get_quantiles_from_tdigest(digest)
+        
+        #print(key, flat, q_vals)
+        return {
             "id_key": key,
-            "centroids": digest.get_centroids(),
-            "quantiles": quantiles,
-        }
-        #print("done")
-        return payload
+            "flat": flat,      # <-- store original flattened data
+            "q_vals": q_vals,
+            "q_list": q_list,
+                }
     else:
+        print(key)
         return None
+        
+
+
 # ------------------------------------------------------------------
 # main driver
 # ------------------------------------------------------------------
@@ -80,15 +87,14 @@ def compute_results(
     all_payloads_for_day = []
 
     # 3) For each collection, open datasets and build jobs.
+    #c = 0
     for coll_name, files in collection_dict.items():
+        if coll_name != "tavg1_2d_lfo_Nx":
+            continue
         print(f"Processing collection: {coll_name}")
         if not files:
             print(f"{coll_name} has no files to process")
             continue
-        # 3.1) Open multi-file dataset lazily with xarray/dask.
-
-        # if coll_name != "inst1_2d_asm_Nx":
-        #    continue
 
         start = datetime.now()
         ds = xr.open_mfdataset(
@@ -99,10 +105,9 @@ def compute_results(
             coords="minimal",
             compat="no_conflicts",
             engine="h5netcdf",
-            chunks="auto",
-            parallel=True,
+            chunks=None,     # single-process: no dask chunking
+            parallel=False,  # single-process
         )
-        # print(ds.dims)
         end = datetime.now()
         print(f"time to open metadataset: {(end - start).total_seconds()}")
 
@@ -110,29 +115,25 @@ def compute_results(
         lat_name = next((c for c in LAT_NAMES if c in ds.coords), None)
         lev_dim = next((d for d in LEV_NAMES if d in ds.coords), None)
 
-        delayed_jobs = []
-
         lat_arr = ds[lat_name].values
-        is_strictly_ascending  = np.all(np.diff(lat_arr) > 0) 
-        is_strictly_descending = np.all(np.diff(lat_arr) < 0) 
-
+        is_strictly_ascending = np.all(np.diff(lat_arr) > 0)
+        is_strictly_descending = np.all(np.diff(lat_arr) < 0)
 
         # 3.3) For each variable...
         for var in ds.data_vars:
             da = ds[var]
 
-            #print(var)
             # 3.4) For each level (or None if no level coord)...
             levels = (
                 ds[lev_dim].values
                 if lev_dim and (lev_dim in da.coords)
                 else [None]
             )
-            # collection, variable, level - data
+
             for lev_val in levels:
                 da_lev = da.sel({lev_dim: lev_val}) if lev_val is not None else da
 
-                # 3.5) For each stratum (lat band) -- process stratum level data
+                # 3.5) For each stratum (lat band)
                 for sname, sdef in strata.items():
                     lat_min, lat_max = sdef["lat"]["min"], sdef["lat"]["max"]
                     if is_strictly_ascending:
@@ -142,33 +143,11 @@ def compute_results(
                     else:
                         raise ValueError(f"Latitude coordinate {lat_name} is not monotonic: {lat_arr}")
 
-                    #dims2stack = [d for d in da_lev.dims]
-                
-                    #flat = (
-                    #    da_lev.sel({lat_name: lat_slice})
-                    #    .stack(sample=dims2stack)
-                    #    .data # lazy selection 
-                    #)
-
                     da_sel = da_lev.sel({lat_name: lat_slice})
-
                     id_key = f"{coll_name}|{var}|{lev_val}|{sname}"
 
-                    # 3.6) Queue the job.
-                    delayed_jobs.append(analyse(da_sel, id_key))
-
-        # 4) Execute all delayed jobs (reads ➜ computes ➜ returns payloads).
-        if delayed_jobs:
-            start = datetime.now()
-            finished = dask.compute(*delayed_jobs, scheduler="threads", num_workers=40)
-            end = datetime.now()
-            print(
-                f"✔ {len(finished)} results computed for collection {coll_name} "
-                 f"in {(end - start).total_seconds()} secs"
-            )
-
-            # finished is a tuple/list of payload dicts
-            all_payloads_for_day.extend(finished)
+                    # single-process: run immediately and store result
+                    all_payloads_for_day.append(analyse(da_sel, id_key))
 
         ds.close()
 
@@ -177,51 +156,32 @@ def compute_results(
 
 # ------------------------------------------------------------------
 if __name__ == "__main__":
-    import argparse
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--date", help="Date in YYYY-MM-DD format")
-    parser.add_argument("--model", default="GEOSFP", help="Model name")
-    args = parser.parse_args()
-
-    out_dir = "/home/sadhika8/JupyterLinks/nobackup/quads_data"
-
-    # model: from CLI if given, else default "GEOSFP"
-    model = args.model
-
-    # date: 
-    date = datetime.strptime(args.date, "%Y-%m-%d")
 
     data_yaml_file = "/home/sadhika8/JupyterLinks/nobackup/quads/conf/dataserver.yaml"
     strata_file = "/home/sadhika8/JupyterLinks/nobackup/quads/conf/strata.yaml"
 
     results = compute_results(
-        model=model,
-        date=date,
+        model="GEOSFP",
+        date=datetime(2024, 4, 10),
         data_yaml_file=data_yaml_file,
         strata_file=strata_file,
     )
 
-    # One daily file under out_dir/model/YYYY/MM/YYYY-MM-DD.pkl, one monthly for MERRA2 and GEOSIT
-    base = Path(out_dir)
-    year_dir = base / model / f"{date.year:04d}"
-    month_dir = year_dir / f"{date.month:02d}"
-    month_dir.mkdir(parents=True, exist_ok=True)
+    # Save everything (including 'flat') for later inspection/plotting
+    out_pkl = "debug_results.pkl"
+    with open(out_pkl, "wb") as f:
+        pickle.dump(results, f)
 
-    day_str = date.strftime("%Y-%m-%d")
-    month_str = date.strftime("%Y-%m")
+    # Optional: convenience DataFrames for quantiles (ragged lengths OK via Series/concat)
+    df_q_vals = pd.concat([pd.Series(r["q_vals"], name=r["id_key"]) for r in results if r is not None], axis=1)
+    df_q_list = pd.concat([pd.Series(r["q_list"], name=r["id_key"]) for r in results if r is not None], axis=1)
+    df_q_vals.to_pickle("debug_q_vals.pkl")
+    df_q_list.to_pickle("debug_q_list.pkl")
 
-    if model in ["GEOSFP", "GEOSCF"]:
-        final = month_dir / f"{day_str}.pkl"
-        tmp = month_dir / f".{day_str}.pkl.tmp"
-    else: # directly writes a monthly aggregated .pkl in case of GEOSIT and MERRA2
-        aggregated_month_str = f"monthly_merged_digest_{model}_{month_str}"
-        final = month_dir / f"{aggregated_month_str}.pkl"
-        tmp = month_dir / f".{aggregated_month_str}.pkl.tmp"
+    # Optional: store flat as a dict of arrays (cleaner than forcing into a DataFrame)
+    flats = {r["id_key"]: r["flat"] for r in results if r is not None}
+    with open("debug_flat.pkl", "wb") as f:
+        pickle.dump(flats, f)
 
-    with open(tmp, "wb") as fh:
-        pickle.dump(results, fh, protocol=pickle.HIGHEST_PROTOCOL)
-
-    os.replace(tmp, final)
-    print(f"✅ Saved {len(results)} payloads to {final}")
+    print(f"Saved: {out_pkl}, debug_flat.pkl, debug_q_vals.pkl, debug_q_list.pkl")
 

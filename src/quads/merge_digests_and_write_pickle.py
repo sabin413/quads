@@ -10,7 +10,7 @@ import argparse
 import numpy as np
 
 from pytdigest import TDigest
-from make_tdigest import get_quantiles_from_tdigest
+from quads.make_tdigest import get_quantiles_from_tdigest
 
 
 def load_daily_results(daily_file: Path):

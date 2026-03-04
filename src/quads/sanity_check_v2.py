@@ -1,7 +1,7 @@
 # quads core sanity check -- finds a 'fence' based on a reference historical data and counts how many points are out of fence
 
 import numpy as np
-from make_tdigest import create_digest, get_quantiles_from_tdigest
+from quads.make_tdigest import create_digest, get_quantiles_from_tdigest
 
 innerq = 0.0001
 outerq =  0.0000001
@@ -36,7 +36,7 @@ def fence(data):
     e_low = r_low*tail_scalar
     c_low =  h_low/median_scalar
     lower_bound = o_low - e_low - c_low
-    #print(lower_bound, upper_bound)
+    #print("fence", lower_bound, upper_bound)
     return lower_bound, upper_bound
 
 def edge_check(input_data, reference_quantile_data):
@@ -57,7 +57,8 @@ def edge_check(input_data, reference_quantile_data):
 
 if __name__ == "__main__":
     N = 10_000_000
-    data = np.random.uniform(0, 100, N)
+    #data = np.random.uniform(0, 100, N)
+    data = np.zeros(N)
 
     td = create_digest(data)
     print(type(td))

@@ -5,7 +5,7 @@ import pickle
 from collections import defaultdict
 
 from pytdigest import TDigest
-from make_tdigest import get_quantiles_from_tdigest  # returns (quantiles, quantile_list)
+from quads.make_tdigest import get_quantiles_from_tdigest  # returns (quantiles, quantile_list)
 
 def _safe_load_payload(p: Path):
     try:
