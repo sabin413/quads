@@ -8,7 +8,15 @@
 #SBATCH --error=/home/sadhika8/JupyterLinks/nobackup/quads_dev/log_files/file.%j.err
 
 set -euo pipefail
+
+cd /home/sadhika8/JupyterLinks/nobackup/quads_dev # needed only if there are relative paths
+module purge 2>/dev/null || true
 module load python/GEOSpyD
+
+# Avoid picking up ~/.local installs (forces venv+GEOSpyD only)
+export PYTHONNOUSERSITE=1
+
+source /home/sadhika8/JupyterLinks/nobackup/quads_dev/.venv/bin/activate # activates the virtual environment
 
 # Year/month/model for this run (allow sbatch --export to override)
 YEAR=${YEAR:-2024}

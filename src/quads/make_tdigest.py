@@ -1,9 +1,13 @@
 import numpy as np
 from pytdigest import TDigest        # explicit package
+# check details here: https://raw.githubusercontent.com/protivinsky/pytdigest/main/pytdigest/pytdigest.py
 
-def create_digest(data, compression=300):
-    """Create a t-digest object for given data and compression parameter."""
-    td = TDigest.compute(data, compression=compression)  # vectorised C loop
+def create_digest(data, weights=None, compression=300):
+    """Create a t-digest object for given data and compression parameter"""
+    data = np.asarray(data)
+    #if weights is None:
+    #    weights = np.ones_like(data)
+    td = TDigest.compute(data, weights, compression=compression)  # vectorised C loop
     return td
 
 def get_quantiles_from_tdigest(td,
