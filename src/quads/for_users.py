@@ -19,7 +19,6 @@ from quads.sanity_check_v2 import edge_check
 LEV_NAMES = ["lev", "level", "pressure"]
 LAT_NAMES = ["lat", "latitude", "y"]
 
-
 # -----------------------------
 # helpers
 # -----------------------------
@@ -69,8 +68,8 @@ def analyse(da_sel,
 
     quantiles, qlist = ref
     n_low, n_high, fence_low, fence_high = edge_check(data, (quantiles, qlist))
-    #no_viol = int(n_low + n_high)
-    return key, n_low, n_high, fence_low, fence_high,  quantiles, qlist
+    n_tot = int(n_low + n_high)
+    return key, n_low, n_high, n_tot, fence_low, fence_high,  quantiles, qlist
 # -----------------------------
 # main driver
 # -----------------------------
@@ -97,7 +96,7 @@ def compute_and_save_results(
     # Load strata definitions
     strata = load_strata(strata_file)
 
-    df = pd.DataFrame(columns=["id_string", "no_of_violations_left", "no_of_violations_right","fence_low","fence_high", "quantile_values", "q_list"])
+    df = pd.DataFrame(columns=["id_string", "no_of_violations_left", "no_of_violations_right", "no_of_total_violations", "fence_low","fence_high", "quantile_values", "q_list"])
 
     for coll_name, files in list(collection_dict.items()):
         #if coll_name != "inst3_2d_asm_Nx":
@@ -195,8 +194,8 @@ if __name__ == "__main__":
     data_yaml_file = "/home/sadhika8/JupyterLinks/nobackup/quads/conf/dataserver.yaml"
     strata_file = "/home/sadhika8/JupyterLinks/nobackup/quads/conf/strata.yaml"
     db_path = Path(f"/home/sadhika8/JupyterLinks/nobackup/quads_database/{model_lower}_monthly_aggregated_centroids_and_quantiles.db")
-    results_path = Path(f"/home/sadhika8/JupyterLinks/nobackup/quads_results/{model_lower}")
-    results_path.mkdir(parents=True, exist_ok=True)
+    results_base_path = Path(f"/home/sadhika8/JupyterLinks/nobackup/quads_results")
+    results_base_path.mkdir(parents=True, exist_ok=True)
 
     print(f"Running QUADS user job for MODEL={model}, DATE={date_str}")
 
@@ -209,11 +208,20 @@ if __name__ == "__main__":
             historical_reference_date=historical_reference_date,
             db_path=db_path,
         )
+        df.sort_values(by="no_of_total_violations", ascending="False")
+
+        # One daily file under out_dir/model/YYYY/MM/YYYY-MM-DD.pkl, one monthly for MERRA2 and GEOSIT
+        base = results_base_path
+        year_dir = base / model / f"{date.year:04d}"
+        month_dir = year_dir / f"{date.month:02d}"
+        #month_dir.mkdir(parents=True, exist_ok=True)
+        day_dir = month_dir / f"{date.day:02d}"
+        day_dir.mkdir(parents=True, exist_ok=True)
 
         ref_str = historical_reference_date.strftime("%Y-%m")
-        df_var_name = f"quads_test_{model}_{date.strftime('%Y_%m_%d')}_reference_date_{ref_str}"
+        df_var_name = f"quads_results_{model_lower}_{date.strftime('%Y_%m_%d')}_reference_date_{ref_str}"
         out_file = f"{df_var_name}.pkl"
-        out_path = results_path / out_file
+        out_path = day_dir / out_file
         df.to_pickle(out_path)
 
         print(f"Created DataFrame '{df_var_name}' with {len(df)} rows.")

@@ -4,8 +4,9 @@
 #SBATCH --time=3:00:00
 #SBATCH --nodes=1
 #SBATCH --exclusive
-#SBATCH --output=/home/sadhika8/JupyterLinks/nobackup/quads_dev/log_files/user.%j.out
-#SBATCH --error=/home/sadhika8/JupyterLinks/nobackup/quads_dev/log_files/user.%j.err
+#SBATCH --array=1-31
+#SBATCH --output=/home/sadhika8/JupyterLinks/nobackup/quads_dev/log_files/user.%A_%a.out
+#SBATCH --error=/home/sadhika8/JupyterLinks/nobackup/quads_dev/log_files/user.%A_%a.err
 
 set -euo pipefail
 
@@ -22,9 +23,24 @@ source /home/sadhika8/JupyterLinks/nobackup/quads_dev/.venv/bin/activate # activ
 # -----------------------------
 # User inputs (edit these only)
 # -----------------------------
-MODEL="GEOSFP"      # GEOSFP / GEOSCF / MERRA2 / GEOSIT
-DATE="2024-02-10"   # YYYY-MM-DD for GEOSFP/GEOSCF
-                    #  MERRA2/GEOSIT only needs YYYY-MM. But, the code expects the full format YYYY-MM-DD and ignores the DD part.
+MODEL="GEOSFP"
+DATE="2024-02"
+
+DAY=$(printf "%02d" "${SLURM_ARRAY_TASK_ID}")
+
+days_in_month=$(python - <<PY
+from calendar import monthrange
+y, m = map(int, "${DATE}".split("-"))
+print(monthrange(y, m)[1])
+PY
+)
+
+if (( 10#$DAY > days_in_month )); then
+    echo "Skipping invalid date ${DATE}-${DAY}"
+    exit 0
+fi
+
+DATE="${DATE}-${DAY}"
 
 # Export to Python
 export MODEL DATE
@@ -34,4 +50,3 @@ echo "MODEL=$MODEL"
 echo "DATE=$DATE"
 
 python -u -m quads.for_users
-

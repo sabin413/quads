@@ -18,3 +18,31 @@
 # quick test
 # talk to users
 
+# QUADS TEST ROUND 2
+1. Science
+# Check t-digest and fence creation logic: Analyze the algorithm, why not simply histogram? 
+## I tested them with uniform and normal distriution data: t-digest and fence look fine. Both the upper and 
+## the lower fence lie around 10% (of range) from the max and min of the data set. 
+2. Macro
+# a) are all the files identified?
+## No. Comparing the collection list for GEOSFP from my dataserver.yaml file with what is in there in the GEOSFP data source for a given day,
+## I see that there are several possible collections that are missing. Are they legit collections that I need to include?
+## my code is finding the files for the declared collections
+## the directory also contains many other files
+## those others are outside the whitelist, so they are ignored by design
+3. Micro - data based
+# c) access data for a given chunk -- then make histogram, min, max, etc. compare it with the t-digest. Can you do that for referene month (or at least one reference day?) --
+# this is the most important check
+## started checking and the result seems fine -- can I automate it? It would be an altimate test for backend!
+
+4. Micro - database creation, etc. - quick verification
+5. Micro - Job submission workflow
+6. Documentation of backend
+7. Compare test results with the TUI results - verify that TUI is correct
+8. Send it to Austin
+9. Go through TUI code again
+
+## Commenst of t-digest calculation: the fence roughly falls down around 10 percent below/after min/max. But, some variables seem to have extremely small values
+## ranging from 1e-19 to 1e-25. Computing fence in that case might be useless. Why my results might deviate that much with Tariq's? Next, invite a scientist to explore it.
+## this is pretty important!
+
