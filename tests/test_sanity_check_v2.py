@@ -1,7 +1,7 @@
 # quads core sanity check -- finds a 'fence' based on a reference historical data and counts how many points are out of fence
 
 import numpy as np
-from quads.make_tdigest import create_digest, get_quantiles_from_tdigest
+from test_make_digest import create_digest, get_quantiles_from_tdigest
 
 innerq = 0.0001
 outerq =  0.0000001
