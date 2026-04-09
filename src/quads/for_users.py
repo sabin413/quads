@@ -1,4 +1,6 @@
-# lowm_para_serial_for_users.py
+# compute and store results with comparing daily data with historical
+# SQLite database
+
 from pathlib import Path
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
@@ -191,8 +193,8 @@ if __name__ == "__main__":
         date - relativedelta(years=1, months=-1),
     ]
 
-    data_yaml_file = "/home/sadhika8/JupyterLinks/nobackup/quads/conf/dataserver.yaml"
-    strata_file = "/home/sadhika8/JupyterLinks/nobackup/quads/conf/strata.yaml"
+    data_yaml_file = "/home/sadhika8/JupyterLinks/nobackup/quads_dev/conf/dataserver.yaml"
+    strata_file = "/home/sadhika8/JupyterLinks/nobackup/quads_dev/conf/strata.yaml"
     db_path = Path(f"/home/sadhika8/JupyterLinks/nobackup/quads_database/{model_lower}_monthly_aggregated_centroids_and_quantiles.db")
     results_base_path = Path(f"/home/sadhika8/JupyterLinks/nobackup/quads_results")
     results_base_path.mkdir(parents=True, exist_ok=True)
@@ -227,4 +229,7 @@ if __name__ == "__main__":
         print(f"Created DataFrame '{df_var_name}' with {len(df)} rows.")
         print(f"✔ Saved DataFrame to {out_path}")
         print(df.head())
+
+# Note: This code can be optimized for run-time by only opening the raw data
+# files once instead of three times -- a typical example of DRY
 
