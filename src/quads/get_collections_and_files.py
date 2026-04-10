@@ -77,8 +77,8 @@ def list_files_and_excluded_vars(
     return files, collection_map, excluded
 
 if __name__ == "__main__":
-    results = list_files_and_excluded_vars("GEOSFP", datetime(2024, 2, 1),"/home/sadhika8/JupyterLinks/nobackup/quads/conf/dataserver.yaml") 
-    #print(results[1]['inst1_2d_int_Nx'])
+    results = list_files_and_excluded_vars("MERRA2", datetime(2024, 2, 1),"/home/sadhika8/JupyterLinks/nobackup/quads/conf/dataserver.yaml") 
+    #print(results[1]['inst1_2d_asm_Nx'])
     dic = results[1]
     summ = 0
     for key, value in dic.items():
@@ -91,7 +91,8 @@ if __name__ == "__main__":
 # NOTE:2. Only looks for .nc and .nc4 files, excluding any other formats
 # NOTE:3. Note how the code can handle  both daily and monthly sub directories - date.strftime() converts a datatime object (date here) into a formatted string 
 # datetime, Path(datetime) -> converts datetime into a path object, Path(string).glob() -- gives all file and folder list at that address, not recursive
-
+# for a given date: YYYY-MM-DD, for merra2 and geosit, the code goes it the right monthly subdir ignoring the date. It is intentional as we only need monthly aggregates later while
+# building the database. But the files need to "ungrouped" while compuing daily results for the users.
 
 # GEOSIT and MERRA2 seem confusing in terms of the collections they have
 # MERRA2: has files stored in monthly subdirs. In addition to daily files they have .avg, .montly, and .diurnal and my script (pattern) excludes them. Might need to talk to the scientists again.

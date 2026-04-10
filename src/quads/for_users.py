@@ -104,6 +104,12 @@ def compute_and_save_results(
         #if coll_name != "inst3_2d_asm_Nx":
         #   continue
 
+        if model in ["MERRA2", "GEOSIT"]:
+            day = date.day
+            tag = f"{day:02d}.nc4" # note the assumption here
+            files = [fi for fi in files if fi.endswith(tag)]
+            print(day, files)
+
         ds = xr.open_mfdataset(
             files,
             combine="by_coords",

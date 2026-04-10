@@ -4,9 +4,9 @@ set -euo pipefail
 # -----------------------------
 # Inputs (edit these)
 # -----------------------------
-YEAR=2024
-MONTH=4
-MODEL="MERRA2"   # e.g., MERRA2 or GEOSIT
+YEAR=2023
+MONTH=1
+MODEL="GEOSIT"   # e.g., MERRA2 or GEOSIT
 
 # -----------------------------
 # Pipeline submission (Type B: no merge step)
