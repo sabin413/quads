@@ -60,6 +60,9 @@ def analyse(da_sel,
             reference_month,
             database_path,
             ):
+    """
+    Compute results for the given data slice
+    """
     arr_np = np.asarray(da_sel) # becomes numpy array
     data = arr_np.reshape(-1)
 
@@ -100,7 +103,7 @@ def compute_and_save_results(
 
     df = pd.DataFrame(columns=["id_string", "no_of_violations_left", "no_of_violations_right", "no_of_total_violations", "fence_low","fence_high", "quantile_values", "q_list"])
 
-    for coll_name, files in list(collection_dict.items()):
+    for coll_name, files in collection_dict.items():
         #if coll_name != "inst3_2d_asm_Nx":
         #   continue
 

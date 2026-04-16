@@ -77,7 +77,7 @@ def list_files_and_excluded_vars(
     return files, collection_map, excluded
 
 if __name__ == "__main__":
-    results = list_files_and_excluded_vars("MERRA2", datetime(2024, 2, 1),"/home/sadhika8/JupyterLinks/nobackup/quads/conf/dataserver.yaml") 
+    results = list_files_and_excluded_vars("MERRA2", datetime(2023, 3, 1),"/home/sadhika8/JupyterLinks/nobackup/quads_dev/conf/dataserver.yaml") 
     #print(results[1]['inst1_2d_asm_Nx'])
     dic = results[1]
     summ = 0

@@ -5,7 +5,7 @@ set -euo pipefail
 # Inputs (edit these)
 # -----------------------------
 YEAR=2023
-MONTH=1
+MONTH=3
 MODEL="GEOSIT"   # e.g., MERRA2 or GEOSIT
 
 # -----------------------------

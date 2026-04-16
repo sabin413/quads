@@ -6,8 +6,8 @@
 #SBATCH --time=24:00:00
 #SBATCH --nodes=1
 #SBATCH --exclusive
-#SBATCH --output=/home/sadhika8/JupyterLinks/nobackup/quads/src/log_files/file.%j.out
-#SBATCH --error=/home/sadhika8/JupyterLinks/nobackup/quads/src/log_files/file.%j.err
+#SBATCH --output=/home/sadhika8/JupyterLinks/nobackup/quads_dev/log_files/typeB/file.%j.out
+#SBATCH --error=/home/sadhika8/JupyterLinks/nobackup/quads_dev/log_files/typeB/file.%j.err
 
 set -euo pipefail
 
@@ -34,7 +34,7 @@ DATE_STR="${YEAR}-${MONTH_PADDED}-${DAY_PADDED}"
 
 echo "Running for DATE=${DATE_STR}, MODEL=${MODEL}"
 
-srun python -u -m compute_and_save_daily_digests \
+srun python -u -m quads.compute_and_save_daily_digests \
     --date "${DATE_STR}" \
     --model "${MODEL}"
 
