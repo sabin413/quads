@@ -101,9 +101,9 @@ def main():
     base_out_dir = "/home/sadhika8/JupyterLinks/nobackup/quads_data"
 
     # Read from environment (set by your .sh), fall back to defaults
-    model = os.environ.get("MODEL", "GEOSFP")
-    year = int(os.environ.get("YEAR", "2024"))
-    month = int(os.environ.get("MONTH", "4"))
+    model = os.environ.get("MODEL")
+    year = int(os.environ.get("YEAR"))
+    month = int(os.environ.get("MONTH"))
 
     model_lower = model.lower()
     compression = 300

@@ -55,21 +55,20 @@ def list_files_and_excluded_vars(
 
     # Search per collection by token in filename; filter by extension.
     for c in collections:
-        #pattern = f"*{c}*"
-        #if '.' in c:
-        #    pattern = f"*{c}.*"
-        #else:
-         #   pattern = f"*{c}.[0-9]*"
-
-        pattern = f"*{c}.[0-9]*" # it excludes ave, monthly, etc 
+        
+        if model == "GEOSIT":
+            pattern = f"*{c}*"
+        else:
+            pattern = f"*{c}.[0-9]*" # it excludes ave, monthly, etc 
 
         hits = [
             str(p)
             for p in root.glob(pattern) # this does not look into subdirs
             if p.suffix in allowed_exts
         ]
-        collection_map[c] = hits
-        files.extend(hits)
+        if hits: # ignore collections with no files
+            collection_map[c] = hits
+            files.extend(hits)
 
     # Excluded vars.
     excluded = list(cfg.get('EXCLUDED_VARS'))
@@ -77,7 +76,7 @@ def list_files_and_excluded_vars(
     return files, collection_map, excluded
 
 if __name__ == "__main__":
-    results = list_files_and_excluded_vars("MERRA2", datetime(2023, 3, 1),"/home/sadhika8/JupyterLinks/nobackup/quads_dev/conf/dataserver.yaml") 
+    results = list_files_and_excluded_vars("GEOSIT", datetime(2023, 3, 1),"/home/sadhika8/JupyterLinks/nobackup/quads_dev/conf/dataserver.yaml") 
     #print(results[1]['inst1_2d_asm_Nx'])
     dic = results[1]
     summ = 0

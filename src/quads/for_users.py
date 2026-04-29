@@ -41,6 +41,7 @@ def load_quantiles_from_db(db_path: Path, model: str, year: int, month: int, id_
             "WHERE model=? AND year=? AND month=? AND id_string=?",
             (model, year, month, id_string),
         ).fetchone()
+    #print(row)
 
     if row is None:
         print(
@@ -107,12 +108,12 @@ def compute_and_save_results(
         #if coll_name != "inst3_2d_asm_Nx":
         #   continue
 
-        if model in ["MERRA2", "GEOSIT"]:
+        if model in ["MERRA2"]:
             day = date.day
             tag = f"{day:02d}.nc4" # note the assumption here
             files = [fi for fi in files if fi.endswith(tag)]
             print(day, files)
-
+        print(files)
         ds = xr.open_mfdataset(
             files,
             combine="by_coords",
@@ -124,10 +125,12 @@ def compute_and_save_results(
             chunks="auto",
             parallel=True,
         )
-        print(ds.dims)
+        #print(ds.dims)
+        #print(ds.coords)
+        #print(ds.coords["lev"].values)
 
         # 3.2) Identify coordinate names (lat, optional level).
-        lat_name = next((c for c in LAT_NAMES if c in ds.coords), None)
+        lat_name = next((c for c in LAT_NAMES if c in ds.coords), None) # first matching candidate
         lev_dim = next((d for d in LEV_NAMES if d in ds.coords), None)
 
         delayed_jobs = []
@@ -189,8 +192,8 @@ def compute_and_save_results(
 if __name__ == "__main__":
     import os
 
-    model = os.environ.get("MODEL", "GEOSFP")
-    date_str = os.environ.get("DATE", "2025-05-10")
+    model = os.environ.get("MODEL", "GEOSIT")
+    date_str = os.environ.get("DATE", "2024-02-1")
 
     date = datetime.strptime(date_str, "%Y-%m-%d")
 
@@ -219,13 +222,13 @@ if __name__ == "__main__":
             historical_reference_date=historical_reference_date,
             db_path=db_path,
         )
-        df.sort_values(by="no_of_total_violations", ascending="False")
+        df.sort_values(by="no_of_total_violations", ascending=False)
 
         # One daily file under out_dir/model/YYYY/MM/YYYY-MM-DD.pkl, one monthly for MERRA2 and GEOSIT
         base = results_base_path
         year_dir = base / model / f"{date.year:04d}"
         month_dir = year_dir / f"{date.month:02d}"
-        #month_dir.mkdir(parents=True, exist_ok=True)
+        month_dir.mkdir(parents=True, exist_ok=True)
         day_dir = month_dir / f"{date.day:02d}"
         day_dir.mkdir(parents=True, exist_ok=True)
 

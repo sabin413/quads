@@ -3,9 +3,10 @@
 MODELS:
   GEOSIT:
     ID: 'GEOSIT'
-    SRC: '/home/dao_ops/d5294_geosit_jan18/run/.../archive/diag/Y%Y/M%m'
+    SRC: '/css/gmao/geos-it/products/Y%Y/M%m/D%d'
     FILES: 'd5294_geosit_jan18.*.%Y-%m-%dT%H%M*.nc' # ignore it, not used
     COLLECTIONS:
+      - asm_const_0hr_glo_L576x361_slv
       - mst_tavg_3hr_glo_L576x361_v73
       - asm_inst_3hr_glo_L576x361_p42
       - asm_tavg_3hr_glo_L576x361_v72
@@ -19,7 +20,6 @@ MODELS:
       - asm_inst_1hr_glo_L576x361_slv
       - flx_tavg_1hr_glo_L576x361_slv
       - rad_tavg_3hr_glo_L576x361_v72
-      - asm_inst_0hr_glo_L576x361_slv
       - mst_tavg_3hr_glo_L576x361_v72
       - asm_inst_3hr_glo_L576x361_v72
       - trb_tavg_3hr_glo_L576x361_v73
@@ -102,7 +102,7 @@ MODELS:
 
   MERRA2:
     ID: 'MERRA2'
-    SRC: '/discover/nobackup/projects/gmao/merra2/data/pub/products/MERRA2_400/Y%Y/M%m'
+    SRC: '/discover/nobackup/projects/gmao/merra2/data/products/MERRA2_all/Y%Y/M%m'
     FILES: 'MERRA2_400.*.%Y%m%d.nc' # not used
     COLLECTIONS:
       - inst1_2d_asm_Nx

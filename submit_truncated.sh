@@ -5,8 +5,8 @@ set -euo pipefail
 # Inputs
 # -----------------------------
 YEAR=2023
-MONTH=1
-MODEL="GEOSCF"
+MONTH=3
+MODEL="GEOSIT"
 
 # -----------------------------
 # Pipeline submission

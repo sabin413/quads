@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #SBATCH --job-name=quads_user
 #SBATCH --account=s2441
-#SBATCH --time=3:00:00
+#SBATCH --time=12:00:00
 #SBATCH --nodes=1
 #SBATCH --exclusive
 #SBATCH --array=1-31
@@ -23,7 +23,7 @@ source /home/sadhika8/JupyterLinks/nobackup/quads_dev/.venv/bin/activate # activ
 # -----------------------------
 # User inputs (edit these only)
 # -----------------------------
-MODEL="GEOSFP"
+MODEL="GEOSIT" # should work for both types
 DATE="2024-02"
 
 DAY=$(printf "%02d" "${SLURM_ARRAY_TASK_ID}")

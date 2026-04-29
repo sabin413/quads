@@ -193,8 +193,8 @@ if __name__ == "__main__":
     # date: 
     date = datetime.strptime(args.date, "%Y-%m-%d")
 
-    data_yaml_file = "/home/sadhika8/JupyterLinks/nobackup/quads/conf/dataserver.yaml"
-    strata_file = "/home/sadhika8/JupyterLinks/nobackup/quads/conf/strata.yaml"
+    data_yaml_file = "/home/sadhika8/JupyterLinks/nobackup/quads_dev/conf/dataserver.yaml"
+    strata_file = "/home/sadhika8/JupyterLinks/nobackup/quads_dev/conf/strata.yaml"
 
     results = compute_results(
         model=model,
@@ -212,7 +212,7 @@ if __name__ == "__main__":
     day_str = date.strftime("%Y-%m-%d")
     month_str = date.strftime("%Y-%m")
 
-    if model in ["GEOSFP", "GEOSCF"]:
+    if model in ["GEOSFP", "GEOSCF", "GEOSIT"]:
         final = month_dir / f"{day_str}.pkl"
         tmp = month_dir / f".{day_str}.pkl.tmp"
     else: # directly writes a monthly aggregated .pkl in case of GEOSIT and MERRA2
